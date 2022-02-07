@@ -1,0 +1,22 @@
+Projet NSI/Astro
+
+Cahier des charges :
+  - Contrainte : 
+Utiliser une ou plusieurs bases de données
+
+  - Description du problème :
+Le club Astro du LXM possède une station météo à l'observatoire de la Perdix. Il est possible de controler les telescopes a distance, mais le club voudrait 
+connaitre les conditions météos en temps réel.
+
+  - Objectifs:
+- Brancher la station météo sur le PC présent à l'observatoire de la Perdrix. Les données seront stockées sous le format CSV dans le disque dur car la station météo
+les fournis sous cette forme
+- Importer les données sur un serveur au format SQL toutes les 2 minutes en faisant une moyenne des valeurs collectées les 2 dernière minutes
+- Le serveur aura une ip fixe pour que l'on puisse interroger depuis n'importe quel navigateur internet
+- Il faudrait que le serveur soit sécurisé pour éviter les piratages
+- La page internet sera composée d'un graphique pour la situation nuageuse et le vent qui retracera l'historique sur 40 minutes à 1 heure. Un autre graphique sur
+les autres informations moins importantes comme la temperature sera également disponible sur une autre page ou en dessous. Les graphiques seront séparés en 3 zones :
+1 zone verte pour les bonnes conditions, 1 zone jaune pour les conditions intermédiaires et une 1 zone rouge pour les conditions mauvaises.
+- Si les conditions météos se dégradent, une pop-up apparait d'abord pour prévenir l'utilisateur. Si les conditions continuent de se dégrader, une pop-up apparait
+pour signaler que l'observatoire va se fermer automatiquement
+- Une troisième page peut éventuellement contenir les informations les moins importantes
