@@ -1,0 +1,9 @@
+Routine python qui fait la moyenne des valeurs des 2 dernières minutes et qui l'injecte dans une base SQL
+
+SQL : Date, heure, situation nuage, valeur nuage, situation pluie, valeur pluie, temperature ambiante, status (si on doit fermer l'observatoire), situation vent, valeur vent
+
+Clé primaire : Date et heure
+
+
+
+Documentation AAg Cloudwatcher : https://lunaticoastro.com/aagcw/enhelp/
