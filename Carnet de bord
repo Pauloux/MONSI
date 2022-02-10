@@ -5,13 +5,20 @@ Choix de notre projet, qui est de récupérer les données d'une station météo
 Début de la réalisation d'un cahier des charges, et des éléments à demander aux utilisateurs
 
 1 Février 2021:
-  En cours :
 Création de ce journal de bord
 
 7 Février 2021:
 Il faut que l'on trouve un nom pour le projet
-début de recherche sur la routineCSVtoSQL
-  Le soir a la maison :
+Début de recherche sur la routineCSVtoSQL qui convertis les données csv fournis par le capteur pour les injecter dans le serveur en SQL toutes les deux minutes.
+  Travail hors-cours :
 réglage du problème du format de fichier que l'on utilise pour faire nos tests
 
 8 Février:
+Poursuites des essais pour faire la routine CSVtoSQL.
+Découverte de la librairie Pandas qui pourrait permettre de créer directement des graphiques à partir du format csv. Peut être que nous n'avons pas alors besoin
+de convertir les données au format SQL. Stocker une moyenne des valeurs toutes les 2 minutes en csv dans le serveur semble envisageable.
+
+10 Février:
+Affinage du cahier des charges qui est a rendre demain au professeur. Paul
+Rapide recherche sur la librairie Python Pandas. Exporter les données moyennes sur 2 minutes sur le serveur avec une routine Python classique, puis faire les
+graphiques quand nécéssaire sur le serveur semble envissageable. Paul
