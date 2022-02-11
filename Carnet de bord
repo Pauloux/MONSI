@@ -22,3 +22,8 @@ de convertir les données au format SQL. Stocker une moyenne des valeurs toutes 
 Affinage du cahier des charges qui est a rendre demain au professeur. Paul
 Rapide recherche sur la librairie Python Pandas. Exporter les données moyennes sur 2 minutes sur le serveur avec une routine Python classique, puis faire les
 graphiques quand nécéssaire sur le serveur semble envissageable. Paul
+
+11 Février:
+Si le ficher est vide ça mets les descripteur en haut du fichier csv
+Programation de la recuperation ligne par ligne du fichier csv.
+Création fonction pour récuperer les deux derniere minutes et faire un moyenne pour les nombre et les chaines de caractère des donnés csv du capteur.
