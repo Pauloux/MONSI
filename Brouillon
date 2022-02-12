@@ -1,9 +1,21 @@
-Routine python qui fait la moyenne des valeurs des 2 dernières minutes et qui l'injecte dans une base SQL
+Routine python qui fait la moyenne des valeurs des 2 dernières minutes et qui l'injecte dans un fichier csv
 
 SQL : Date, heure, situation nuage, valeur nuage, situation pluie, valeur pluie, temperature ambiante, status (si on doit fermer l'observatoire), situation vent, valeur vent
 
 Clé primaire : Date et heure
 
+Gérer les erreurs si on veut ouvrir le fichier pendant qu'il est en train d'etre écrit par le capteur
+-> Quand on ouvre le fichier :
+    - on regarde si on peut l'ouvrir, si on ne peut pas, on attends 1 seconde et on réessaie
+    - on regarde s'il est vide, s'il est vide on met la liste des descripteurs au début
+
+
+Vérifier si le capteur ne s'est pas arrêté (vérifier la date)
+faut-il mettre des guillemets dans le fichier csv que l'on créer ?
+
+Faire un programme qui lance le programme toutes les 2 minutes
+
+Faire 
 
 
 Documentation AAg Cloudwatcher : https://lunaticoastro.com/aagcw/enhelp/
