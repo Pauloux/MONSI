@@ -31,6 +31,8 @@ Création fonction pour récuperer les deux derniere minutes et faire un moyenne
 
 12 Février:
 Suite de la création de la Routine
+
+13 Février:
 Les valeurs sont désormais ajoutées à la fin du fichier csv du serveur. Les fonctions sont documentées. Etant à la maison, nous n'avons pas le problème que nous avions au lycée, 
 c'est a dire qu'il y a une erreur si l'on essaie d'ouvrir avec python un fichier déjà ouvert par l'utilisateur. Nous verrons donc au retour en classe comment gérer ces erreurs(fichier
 entrée et sortie). Paul
