@@ -36,3 +36,8 @@ Suite de la création de la Routine
 Les valeurs sont désormais ajoutées à la fin du fichier csv du serveur. Les fonctions sont documentées. Etant à la maison, nous n'avons pas le problème que nous avions au lycée, 
 c'est a dire qu'il y a une erreur si l'on essaie d'ouvrir avec python un fichier déjà ouvert par l'utilisateur. Nous verrons donc au retour en classe comment gérer ces erreurs(fichier
 entrée et sortie). Paul
+
+15 Février:
+Essaie de regler un bug qui fait crash mon interpreteur python quand on essaie de lancer un script python depuis un autre (routine qui se lance toutes les 2 minutes)
+Je me suis endu compte que les données du capteurs sont ajoutées à la fin du fichier alors qu'on prend toujours les premières lignes actuellement dans notre routine.
+Je vais essayer de faire une routine qui simule le capteur
