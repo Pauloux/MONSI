@@ -1,7 +1,3 @@
-import time
-
-#Est-t-il mieux de tout le temps laisser les fichiers ouverts ?
-
 def initialisation():
     #Crée le fichier s'il n'existe pas
     try:
@@ -37,20 +33,3 @@ def lancer():
     #Ferme les fichiers
     fichier_entree.close()
     fichier_sortie.close()
-
-print("Lancement simulateur")
-numero_ligne = 0
-initialisation()
-
-temps_seuil = time.time()
-#En secondes
-delai = 10
-
-while True:
-    temps_actu = time.time()
-    if temps_actu >= temps_seuil:
-        print(time.strftime("%H:%M:%S", time.localtime()))
-        lancer()
-        temps_seuil += delai
-    #Pour ne pas sur-utiliser le processeur
-    time.sleep(0.1)
