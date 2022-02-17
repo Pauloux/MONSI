@@ -50,4 +50,5 @@ Découverte d'une technique pour faire une boucle toutes les x secondes en étan
 17 Février:
 Rangement des fichiers sur le Github. Actualisation des fichiers qui étaient sur le Github et sur Repl. Création d'un fichier main.py qui dirige les autres programmes (fait 
 juste des appels de fonction au bon moment).
-Définition dans le brouillon de ce que l'on doit globalement faire. Paul
+Définition dans le brouillon de ce que l'on doit globalement faire.
+Créations de fichiers de logs et d'erreurs horodatés pour simplifier les tests. Paul
