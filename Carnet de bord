@@ -42,7 +42,12 @@ Essaie de regler un bug qui fait crash mon interpreteur python quand on essaie d
 Je me suis endu compte que les données du capteurs sont ajoutées à la fin du fichier alors qu'on prend toujours les premières lignes actuellement dans notre routine.
 Je vais essayer de faire une routine qui simule le capteur. Paul
 
-16 Février :
+16 Février:
 Création d'un programme qui simule le capteur, c'est a dire qui ajoute une ligne toutes les 10 secondes.
 Modification de la routine pour qu'elle prenne les 20 dernières lignes et non les premières. A changer pour 12 lignes et non 20.
 Découverte d'une technique pour faire une boucle toutes les x secondes en étant précis car juste avec des sleep ça se décale peu a peu
+
+17 Février:
+Rangement des fichiers sur le Github. Actualisation des fichiers qui étaient sur le Github et sur Repl. Création d'un fichier main.py qui dirige les autres programmes (fait 
+juste des appels de fonction au bon moment).
+Définition dans le brouillon de ce que l'on doit globalement faire. Paul
