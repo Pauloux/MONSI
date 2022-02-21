@@ -1,13 +1,46 @@
+import time
+
+nom_fichier_logs = "logs.txt"
+nom_fichier_erreurs = "erreurs.txt"
+nom_fichier_entree = "donnees_brutes.csv"
+nom_fichier_sortie = "Simulateur_donnees.csv"
+
+def get_heure():
+    return time.strftime("%H:%M:%S", time.localtime())
+
+def get_temps():
+    return time.time()
+
+def ecrire_logs(ligne):
+    fichier = open(nom_fichier_logs, "a")
+    ligne = get_heure() + " " + ligne + "\n"
+    fichier.write(ligne)
+    fichier.close()
+
+def ecrire_erreur(ligne):
+    fichier = open(nom_fichier_erreurs, "a")
+    ligne = get_heure() + " " + ligne + "\n"
+    fichier.write(ligne)
+    fichier.close()
+
+def fichier_existe(nom_fichier):
+    try:
+        fichier = open(nom_fichier, "r")
+        fichier.close()
+        return True
+    except IOError as message_erreur:
+        return False
+
 def initialisation():
     #Crée le fichier s'il n'existe pas
-    try:
-        fichier_sortie = open("Simulateur_donnees.csv", "r")
-        fichier_sortie.close()
-    except IOError as message_erreur:
-        fichier_sortie = open("Simulateur_donnees.csv", "a")
+    if not fichier_existe(nom_fichier_sortie):
+        print("Simulateur : Fichier de sortie inexistant, création de " + nom_fichier_sortie)
+        ecrire_logs("Simulateur : Fichier de sortie inexistant, création de " + nom_fichier_sortie)
+        ecrire_erreur("Simulateur : Fichier de sortie inexistant, création de " + nom_fichier_sortie)
+        fichier_sortie = open(nom_fichier_sortie, "x")
         fichier_sortie.close()
 
-    fichier_sortie = open("Simulateur_donnees.csv", "r")
+    fichier_sortie = open(nom_fichier_sortie, "r")
     
     global numero_ligne
     numero_ligne = len(fichier_sortie.readlines())
@@ -16,9 +49,17 @@ def initialisation():
 
 def lancer():
     global numero_ligne
+
+    #Vérifie si le fichier d'entrée existe
+    if not fichier_existe(nom_fichier_entree):
+        print("Simulateur : Fichier d'entrée inexistant, arrêt du Simulateur")
+        ecrire_logs("Simulateur : Fichier d'entrée inexistant, arrêt du Simulateur")
+        ecrire_erreur("Simulateur : Fichier d'entrée inexistant, arrêt du Simulateur")
+        return None
+
     #Ouvre les fichiers
-    fichier_entree = open("donnees_brutes.csv", "r")
-    fichier_sortie = open("Simulateur_donnees.csv", "a")
+    fichier_entree = open(nom_fichier_entree, "r")
+    fichier_sortie = open(nom_fichier_sortie, "a")
 
     #Saute les lignes non necessaires
     for indice in range(numero_ligne):
