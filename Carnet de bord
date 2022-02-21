@@ -52,3 +52,8 @@ Rangement des fichiers sur le Github. Actualisation des fichiers qui étaient su
 juste des appels de fonction au bon moment).
 Définition dans le brouillon de ce que l'on doit globalement faire.
 Créations de fichiers de logs et d'erreurs horodatés pour simplifier les tests. Paul
+
+21 Février:
+S'il y a 6 "Calm" et 6 "Windy" par exemple, alors cela prend désormais la valeur que l'on a rencontré en dernier dans le temps.
+Vérification de l'existence des fichiers d'entrée.
+Création des fichiers de logs et d'erreurs s'ils n'existent pas. Paul
