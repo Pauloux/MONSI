@@ -4,9 +4,6 @@ Documentation AAg Cloudwatcher : https://lunaticoastro.com/aagcw/enhelp/
 
 A faire :
 Vérifier si le capteur ne s'est pas arrêté (vérifier la date)
-Vérifier si les fichiers d'entrée sont présents
-Afficher les erreurs / quand ça ne fait rien car il n'y a pas assez de données etc
-Si on a  des égalités dans le comptage des "Calm"/"Windy" etc, on choisis le dernier qui est apparu
 A la fin des vacances, commenter le code
 
 Créer les graphiques
