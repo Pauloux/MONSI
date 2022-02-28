@@ -4,6 +4,7 @@ Documentation AAg Cloudwatcher : https://lunaticoastro.com/aagcw/enhelp/
 
 A faire :
 Vérifier si le capteur ne s'est pas arrêté (vérifier la date)
+Ne pas faire d'erreur si le fichier est déjà ouvert et donc que la routine ne peut pas y accéder
 A la fin des vacances, commenter le code
 
 Créer les graphiques
