@@ -64,7 +64,10 @@ Les données seront directements envoyées sur le serveur, donc pas besoin de le
 Essaies de trouver comment faire un graphique
 
 1 Mars:
-On a fait des grapique pour que les zone en fond soit coloré et que ça marque la legende sur le coté.
-Les graphique peuvent être fait pour chaque collone des donnés
+Essaies pour faire d segraphiques. Finalement on utilise matplotlib.
+Les données des la dernière heure sont correctement affichées sur le graphique et on a trouvé comment mettre un fond de couleur pour indiquer les zones. 
+On a également trouvé comment mettre des légendes.
+On a fait une fonction pour créer les images avec le numéro de la colonne, le nom du graphique et de l'image, la valeur minimale et maximale mais a terme
+nous ferrons surement une fonction pour chaque graphique car chaque donnée a besoin d'etre traité spécifiquement (différentes zones, couleurs etc)
 
 
