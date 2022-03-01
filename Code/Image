@@ -1,16 +1,16 @@
 import matplotlib.pyplot as plt
 
-fichier = open("Simulateur_donnees.csv")
+fichier = open("csv_serveur.csv")
 
 def get_derniere_heure(fichier):
   """
-  Renvoie un tableau de tableaux les sous-tableaux les lignes de fichier passé en argument. Cela prend les deux dernières minutes.
+  Renvoie un tableau de tableaux les sous-tableaux les lignes de fichier passé en argument. Cela prend la derniere heure.
   """
   tableau = fichier.readlines()[-31:-1]
   fichier.seek(0, 0)
   nouveau_tableau = []
   for i in range(len(tableau)):
-    ligne = tableau[i][1:-3].split('","')
+    ligne = tableau[i][:-3].split(",")
     nouveau_tableau.append(ligne)
   #Securité
   while len(nouveau_tableau) < 30:
@@ -26,7 +26,6 @@ def get_ordonnee(num_colonne):
       valeur = valeur.replace(",", ".")
       valeur = float(valeur)
       ordonnees.append(valeur)
-    ordonnees.reverse()
     return ordonnees
 
 def get_image(num_colonne, titre, mini, maxi):
@@ -42,15 +41,10 @@ def get_image(num_colonne, titre, mini, maxi):
     plt.savefig(nom_fichier)
     plt.cla()
 
-get_image(9, "Temperature", -10, 30)
-get_image(18, "Vent", 0, 5)
-get_image(5, "Nuage", -17, -12)
+get_image(6, "Temperature", -10, 30)
+get_image(8, "Vent", 0, 5)
+get_image(3, "Nuage", -17, -12)
+get_image(5, "Pluie", 0, 2688)
 
 fichier.close()
-
-#rouge = mpatches.Patch(color='red', label='rouge')
-#jaune = mpatches.Patch(color='y', label='jaune')
-#vert = mpatches.Patch(color='g', label='vert')
-#plt.legend(handles=[vert,jaune,rouge],loc='center left', bbox_to_anchor=(1, 0.5))
-
 
