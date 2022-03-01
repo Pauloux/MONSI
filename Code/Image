@@ -48,3 +48,9 @@ get_image(5, "Nuage", -17, -12)
 
 fichier.close()
 
+#rouge = mpatches.Patch(color='red', label='rouge')
+#jaune = mpatches.Patch(color='y', label='jaune')
+#vert = mpatches.Patch(color='g', label='vert')
+#plt.legend(handles=[vert,jaune,rouge],loc='center left', bbox_to_anchor=(1, 0.5))
+
+
