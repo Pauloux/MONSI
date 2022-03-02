@@ -64,10 +64,14 @@ Les données seront directements envoyées sur le serveur, donc pas besoin de le
 Essaies de trouver comment faire un graphique
 
 1 Mars:
-Essaies pour faire d segraphiques. Finalement on utilise matplotlib.
+Essaies pour faire des graphiques. Finalement on utilise matplotlib.
 Les données des la dernière heure sont correctement affichées sur le graphique et on a trouvé comment mettre un fond de couleur pour indiquer les zones. 
 On a également trouvé comment mettre des légendes.
 On a fait une fonction pour créer les images avec le numéro de la colonne, le nom du graphique et de l'image, la valeur minimale et maximale mais a terme
 nous ferrons surement une fonction pour chaque graphique car chaque donnée a besoin d'etre traité spécifiquement (différentes zones, couleurs etc)
 
-
+2 Mars:
+Les valeurs problématiques sont désormais toutes vers le haut(Paul).
+Les temperatures sont désormais avec des zones bleus et rouges (froid/chaud)(Paul).
+Peut etre faudrait-il lisser les valeurs pour avoir des zones de taille plus homogène(Paul).
+L'axes des abcsices est affiché comme étant les minutes(Paul).
