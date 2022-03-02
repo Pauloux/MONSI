@@ -4,11 +4,12 @@ Documentation AAg Cloudwatcher : https://lunaticoastro.com/aagcw/enhelp/
 
 A faire :
 Vérifier si le capteur ne s'est pas arrêté (vérifier la date)
-Ne pas faire d'erreur si le fichier est déjà ouvert et donc que la routine ne peut pas y accéder
+Ne pas faire d'erreur si le fichier est déjà ouvert et donc que la routine ne peut pas y accéder.
 Voir dans quelle plage sont les valeurs des capteurs puis faire les graphiques adaptés (couleurs, plages etc).
 Voir quelles sont les valeurs limites pour les alertes (peut être qu'on aura pas besoin des colonnes Cloud condition etc a la fin du coup).
 Mettre la date sur les graphiques.
-Mettre des parametres (delaai d'ajouts dans csv_serveur, durée du graphique etc)
+Mettre des parametres (delai d'ajouts dans csv_serveur, durée du graphique etc).
+Peut etre faudrait-il lisser les valeurs pour avoir des zones de taille plus homogène.
 
 Créer les graphiques
 Créer la page web
