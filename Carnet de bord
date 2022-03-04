@@ -75,3 +75,8 @@ Les valeurs problématiques sont désormais toutes vers le haut(Paul).
 Les temperatures sont désormais avec des zones bleus et rouges (froid/chaud)(Paul).
 Peut etre faudrait-il lisser les valeurs pour avoir des zones de taille plus homogène(Paul).
 L'axes des abcsices est affiché comme étant les minutes(Paul).
+
+04/03/2022
+On a changer la couleur de tout sur le graphique sauf les axes des ordoné et des abssices.
+On a crées le site HTML l'utilisation du php n'est pas utile pour le moment
+
