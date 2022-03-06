@@ -76,7 +76,12 @@ Les temperatures sont désormais avec des zones bleus et rouges (froid/chaud)(Pa
 Peut etre faudrait-il lisser les valeurs pour avoir des zones de taille plus homogène(Paul).
 L'axes des abcsices est affiché comme étant les minutes(Paul).
 
-04/03/2022
-On a changer la couleur de tout sur le graphique sauf les axes des ordoné et des abssices.
-On a crées le site HTML l'utilisation du php n'est pas utile pour le moment
+4 Mars:
+On a fait des tests sur les images pour rendre le fond transparent pour qu'il ne soit pas blanc. On a aussi essayé de changer la couleur de l'écriture pour mieux voir sur fond noir
+mais on n'a pas réussi a changer la couleur des axes et leur graduation. Finalement la couleur des valeurs des graduations peut etre changée quand même donc si on ne change pas la 
+couleur des axes ce n'est pas grave.
+On a fait des essais sur les couleurs a utiliser sur le site et sur les images pour que ce ne soit pas trop lumineux mais visible rapidement.
+La date et l'heure est désormais inscrite en haut du graphique.
+Pour l'instant le php ne semble pas être utile pour nous, mais il faudrait que l'on détecte quand un utilisateur se conncecte pour ne pas générer des images quand personne
+n'en a besoin.
 
