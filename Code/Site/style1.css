@@ -1,0 +1,25 @@
+body {
+  background-color : #1B262C;
+}
+
+.text_color {
+  color : #BBE1FA;
+  font-family : 'proxima-nova', sans-serif;
+}
+
+.image_gauche{
+  position : absolute;
+  float : left;
+  margin-left : -3%;
+  width : 55%;
+}
+.image_droite{
+  position : absolute;
+  float : left;
+  margin-left : 46%;
+  width : 55%;
+}
+
+.center {
+  text-align : center;
+}
