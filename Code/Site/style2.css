@@ -1,0 +1,16 @@
+body {
+  background-color : #1B262C;
+}
+
+.text_color {
+  color : #BBE1FA;
+  font-family : 'proxima-nova', sans-serif;
+}
+
+.image{
+  height : 95%;
+}
+
+.center {
+  text-align : center;
+}
