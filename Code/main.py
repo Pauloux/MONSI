@@ -1,6 +1,7 @@
 import time
 import routine_convertir_donnees_serveur as routine
 import Simulateur_capteur as simu
+import creation_image as image
 
 nom_fichier_logs = "logs.txt"
 nom_fichier_erreurs = "erreurs.txt"
@@ -47,9 +48,11 @@ fichier_erreurs.close()
 
 temps_seuil_routine = get_temps()
 temps_seuil_simu = get_temps()
+temps_seuil_image = get_temps()
 #En secondes
-delai_routine = 120
-delai_simu = 10
+delai_routine = 12
+delai_simu = 1
+delai_image = 12
 
 #Récupère le nombre de lignes du fichier de sortie pour savoir quelle ligne récuperer dans le fichier d'entrée ensuite
 numero_ligne = 0
@@ -70,5 +73,10 @@ while True:
         ecrire_logs("Exécution Simulateur")
         simu.lancer()
         temps_seuil_simu += delai_simu
+    if temps_actu >= temps_seuil_image:
+        print(get_heure() + " : Exécution Image")
+        ecrire_logs("Exécution Image")
+        image.lancer()
+        temps_seuil_image += delai_image
     #Pour ne pas sur-utiliser le processeur
-    time.sleep(0.1)
+    time.sleep(0.01)
