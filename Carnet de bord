@@ -84,4 +84,9 @@ On a fait des essais sur les couleurs a utiliser sur le site et sur les images p
 La date et l'heure est désormais inscrite en haut du graphique.
 Pour l'instant le php ne semble pas être utile pour nous, mais il faudrait que l'on détecte quand un utilisateur se conncecte pour ne pas générer des images quand personne
 n'en a besoin.
+7 mars:
+plein de trucs
+recherche inutile sur des formus perdu d'internet (ps : c'était long)
+11 Mars:
+Création de popup pour les alerts méteo et de bouton pour naviguer entre les pages
 
