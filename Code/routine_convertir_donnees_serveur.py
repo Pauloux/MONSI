@@ -24,7 +24,7 @@ def ecrire_erreur(ligne):
     ligne = get_heure() + " " + ligne + "\n"
     fichier.write(ligne)
     fichier.close()
-  
+
 def fichier_existe(nom_fichier):
     try:
         fichier = open(nom_fichier, "r")
@@ -47,8 +47,9 @@ def get_2derniere_mins(fichier):
   #Securité
   while len(nouveau_tableau) < 12:
     nouveau_tableau.append("Fausse ligne")
-    ecrire_logs("Fausse ligne ajoutée")
-    ecrire_erreur("Fausse ligne ajoutée")
+    print("Routine : Fausse ligne ajoutée")
+    ecrire_logs("Routine : Fausse ligne ajoutée")
+    ecrire_erreur("Routine : Fausse ligne ajoutée")
   return nouveau_tableau
 
 def moyenne_2mins(fichier):
@@ -121,17 +122,17 @@ def moyenne_2mins(fichier):
       elif valeur["compteur"] > valeur_maximum:
         valeur_maximum = valeur["compteur"]
         maximums = {cle : valeur["premiere occurrence"]}
-  
 
-    #On cherche la premiere occurrence la plus petite 
+
+    #On cherche la premiere occurrence la plus petite
     valeur_premiere_occurrence_min = float("inf")
     cle_premiere_occurrence_min = None
-    
+
     for cle, valeur in maximums.items():
       if valeur < valeur_premiere_occurrence_min:
         cle_premiere_occurrence_min = cle
         valeur_premiere_occurrence_min = valeur
-      
+
     return cle_premiere_occurrence_min
 
   def valeur_status():
@@ -189,7 +190,7 @@ def lancer():
     fichier_sortie = open(nom_fichier_sortie, "a")
     fichier_sortie.write(",".join(descripteurs))
     fichier_sortie.close()
-  
+
   #Vérifie si le fichier d'entrée existe
   if not fichier_existe(nom_fichier_entree):
     print("Routine : Fichier d'entrée inexistant, arrêt de la routine")
