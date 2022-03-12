@@ -9,6 +9,5 @@ Voir quelles sont les valeurs limites pour les alertes (peut être qu'on aura pa
 Peut etre faudrait-il lisser les valeurs pour avoir des zones de taille plus homogène.
 
 Faire les alertes :
-  dans le routine serait mieux pour etre plus fréquent
   il faut un fichier qui stocke les alertes des 30 dernières minutes pour pas en avoir tout le temps et qui les enleve au bout de 30 minutes
   il faut avoir un fichier pour que le site sache s'il doit faire une alerte ou non
