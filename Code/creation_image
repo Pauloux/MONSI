@@ -1,4 +1,61 @@
+import time
 import matplotlib.pyplot as plt
+
+nom_fichier_logs = "logs.txt"
+nom_fichier_erreurs = "erreurs.txt"
+nom_fichier_alertes = "alertes.txt"
+precedentes_alertes = []
+
+def get_heure():
+    return time.strftime("%H:%M:%S", time.localtime())
+
+def get_temps():
+    return time.time()
+
+def ecrire_logs(ligne):
+    fichier = open(nom_fichier_logs, "a")
+    ligne = get_heure() + " " + ligne + "\n"
+    fichier.write(ligne)
+    fichier.close()
+
+def ecrire_erreur(ligne):
+    fichier = open(nom_fichier_erreurs, "a")
+    ligne = get_heure() + " " + ligne + "\n"
+    fichier.write(ligne)
+    fichier.close()
+
+def ecrire_alertes(ligne):
+    fichier = open(nom_fichier_alertes, "a")
+    ligne = ligne + "\n"
+    fichier.write(ligne)
+    fichier.close()
+
+def fichier_existe(nom_fichier):
+    try:
+        fichier = open(nom_fichier, "r")
+        fichier.close()
+        return True
+    except IOError as message_erreur:
+        return False
+
+def clear_fichier(nom_fichier):
+    fichier = open(nom_fichier, "w")
+    fichier.close()
+
+#Création des fichiers logs, erreur et alertes s'ils n'existent pas
+if not fichier_existe(nom_fichier_logs) :
+    fichier_logs = open(nom_fichier_logs, "x")
+    fichier_logs.close()
+if not fichier_existe(nom_fichier_erreurs) :
+    fichier_erreurs = open(nom_fichier_erreurs, "x")
+    fichier_erreurs.close()
+if not fichier_existe(nom_fichier_alertes) :
+    fichier_alertes = open(nom_fichier_alertes, "x")
+    fichier_alertes.close()
+#Remise a zéro des fichiers de logs, d'erreurs et d'alertes
+clear_fichier(nom_fichier_logs)
+clear_fichier(nom_fichier_erreurs)
+clear_fichier(nom_fichier_alertes)
 
 def get_derniere_heure(fichier):
   """
@@ -13,6 +70,9 @@ def get_derniere_heure(fichier):
   #Securité
   while len(nouveau_tableau) < 30:
     nouveau_tableau.append("Fausse ligne")
+    print("Image : Fausse ligne ajoutée")
+    ecrire_logs("Image : Fausse ligne ajoutée")
+    ecrire_erreur("Image : Fausse ligne ajoutée")
   return nouveau_tableau
 
 def get_date_heure(fichier):
@@ -23,6 +83,13 @@ def get_date_heure(fichier):
     heure = ligne[1]
     fichier.seek(0, 0)
     return date + " | " + heure
+
+def get_precedentes_alertes(nom_fichier):
+    precedentes_alertes = []
+    fichier_alertes = open(nom_fichier, "r")
+    precedentes_alertes = fichier_alertes.readlines()
+    fichier_alertes.close()
+    return precedentes_alertes
 
 def get_ordonnee(num_colonne, fichier):
     ordonnees = []
@@ -43,12 +110,12 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
         "maximum" : maximum,
         "num_colonne" : num_colonne,
         "titre" : titre,
-        "couleur_premiere_zone" : "green",
-        "couleur_deuxieme_zone" : "yellow",
-        "couleur_troisieme_zone" : "red",
+        "couleur_premiere_zone" : "#85C58C",
+        "couleur_deuxieme_zone" : "#DCDD78",
+        "couleur_troisieme_zone" : "#FF6961",
         "couleur_ecriture" : "#BBE1FA",
         "couleur_trait" : "black",
-        "alpha" : 0.5,
+        "alpha" : 1,
         "inverser" : False,
         "nom_axe_y" : None
     }
@@ -65,9 +132,30 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
     #Inverse les valeur si besoin
     if parametres["inverser"]:
         ordonnees = [parametres["maximum"] - element for element in ordonnees]
+
+    valeur_maximum = max(ordonnees)
+    if valeur_maximum >= parametres["deuxieme_palier"]:
+        nom_alerte = titre + " 2"
+        if nom_alerte + "\n" not in precedentes_alertes:
+            print("Image : alerte " + nom_alerte + " ecrite dans : " + nom_fichier_alertes)
+            ecrire_logs("Image : alerte " + nom_alerte + " ecrite dans : " + nom_fichier_alertes)
+            ecrire_alertes(nom_alerte)
+        else:
+            print("Image : alerte " + nom_alerte + " deja notifiee")
+            ecrire_logs("Image : alerte " + nom_alerte + " deja notifiee")
+    elif valeur_maximum >= parametres["premier_palier"]:
+        nom_alerte = titre + " 1"
+        if nom_alerte + "\n" not in precedentes_alertes:
+            print("Image : alerte " + nom_alerte + " ecrite dans : " + nom_fichier_alertes)
+            ecrire_logs("Image : alerte " + nom_alerte + " ecrite dans : " + nom_fichier_alertes)
+            ecrire_alertes(nom_alerte)
+        else:
+            print("Image : alerte " + nom_alerte + " deja notifiee")
+            ecrire_logs("Image : alerte " + nom_alerte + " deja notifiee")
+
     #Dessine le trait des valeurs
     plt.plot(abscisse, ordonnees, color=parametres["couleur_trait"])
-    #Dessine les trois zzones en fond
+    #Dessine les trois zones en fond
     plt.axhspan(parametres["minimum"], parametres["premier_palier"], facecolor=parametres["couleur_premiere_zone"], alpha=parametres["alpha"])
     plt.axhspan(parametres["premier_palier"], parametres["deuxieme_palier"], facecolor=parametres["couleur_deuxieme_zone"], alpha=parametres["alpha"])
     plt.axhspan(parametres["deuxieme_palier"], parametres["maximum"], facecolor=parametres["couleur_troisieme_zone"], alpha=parametres["alpha"])
@@ -88,9 +176,14 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
     plt.cla()
 
 def lancer():
+    global precedentes_alertes
+    precedentes_alertes = get_precedentes_alertes(nom_fichier_alertes)
+    clear_fichier(nom_fichier_alertes)
     fichier = open("csv_serveur.csv", "r")
     get_image(0, 5, 10, 40, 8, "Wind", fichier)
     get_image(-30, -5, 0, 40, 3, "Cloud", fichier)
     get_image(0, 1700, 2000, 2800, 5, "Rain", fichier, inverser=True)
-    get_image(-10, 0, 20, 40, 6, "Temperature", fichier, couleur_premiere_zone="blue", couleur_deuxieme_zone="gray", couleur_troisieme_zone="red")
+    get_image(-10, 0, 20, 40, 6, "Temperature", fichier)
     fichier.close()
+    print("Image : Images créées")
+    ecrire_logs("Image : Images créées")
