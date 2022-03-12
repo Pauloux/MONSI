@@ -41,7 +41,7 @@ def initialisation():
         fichier_sortie.close()
 
     fichier_sortie = open(nom_fichier_sortie, "r")
-    
+
     global numero_ligne
     numero_ligne = len(fichier_sortie.readlines())
 
@@ -64,7 +64,7 @@ def lancer():
     #Saute les lignes non necessaires
     for indice in range(numero_ligne):
         fichier_entree.readline()
-    
+
     #Ecrit dans la fichier
     fichier_sortie.write(fichier_entree.readline())
 
