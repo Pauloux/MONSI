@@ -84,9 +84,20 @@ On a fait des essais sur les couleurs a utiliser sur le site et sur les images p
 La date et l'heure est désormais inscrite en haut du graphique.
 Pour l'instant le php ne semble pas être utile pour nous, mais il faudrait que l'on détecte quand un utilisateur se conncecte pour ne pas générer des images quand personne
 n'en a besoin.
-7 mars:
-plein de trucs
-recherche inutile sur des formus perdu d'internet (ps : c'était long)
+
+7 Mars:
+Paul a fait une fonction qui créer les images sur demande avec les parametres que l'on veut et il a rajouté la date et l'heure sur les graphiques
+Noah a fait des sur la detection d'une connexion au serveur et comment changer la couleur des axes du graphique, sans succès
+
 11 Mars:
-Création de popup pour les alerts méteo et de bouton pour naviguer entre les pages
+Expérimentations pour déclencher des pop up sur la page quand on le souhaite(Paul) -> concluant
+Création des boutons pour naviguer entre les pages(Noah) -> concluant
+
+12 Mars:
+Reglage d'un bug pour la couleur des boutons pour naviguer entre les pages(Paul)
+Debut de reflexion sur comment generer le fichier avec les alertes(Paul) -> les alertes sont actuellement créées toutes les 2 minutes en meme temps que les images et elles
+s'affichent une fois sur 2 (le but était de ne pas les afficher pleins de fois d'affiler). Il faudrait peut être créer les alertes plus fréquement que toutes les 2 minutes ?
+
+
+
 
