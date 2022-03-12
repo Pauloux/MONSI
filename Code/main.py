@@ -46,6 +46,7 @@ fichier_logs.close()
 fichier_erreurs = open(nom_fichier_erreurs, "w")
 fichier_erreurs.close()
 
+
 temps_seuil_routine = get_temps()
 temps_seuil_simu = get_temps()
 temps_seuil_image = get_temps()
@@ -79,4 +80,4 @@ while True:
         image.lancer()
         temps_seuil_image += delai_image
     #Pour ne pas sur-utiliser le processeur
-    time.sleep(0.01)
+    time.sleep(0.05)
