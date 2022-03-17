@@ -98,6 +98,12 @@ Reglage d'un bug pour la couleur des boutons pour naviguer entre les pages(Paul)
 Debut de reflexion sur comment generer le fichier avec les alertes(Paul) -> les alertes sont actuellement créées toutes les 2 minutes en meme temps que les images et elles
 s'affichent une fois sur 2 (le but était de ne pas les afficher pleins de fois d'affiler). Il faudrait peut être créer les alertes plus fréquement que toutes les 2 minutes ?
 
+15 Mars:
+Creation d'un fichier alertes.py pour générer les alertes (actuellement toutes les 2 minutes) a partir du fichier csv_serveur.csv.
+Tests pour mettre le site sur un serveur avec Wamp.
+
+16 Mars:
+Les alertes ne s'activent maintenant qu'une fois toutes les 30 minutes pour ne pas faires des alerest tout le temps pour l'utilisateur.
 
 
 
