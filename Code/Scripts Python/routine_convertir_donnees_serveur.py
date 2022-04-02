@@ -1,9 +1,9 @@
 import time
 
-nom_fichier_logs = "logs.txt"
-nom_fichier_erreurs = "erreurs.txt"
-nom_fichier_entree = "Simulateur_donnees.csv"
-nom_fichier_sortie = "csv_serveur.csv"
+nom_fichier_logs = "../Documents/logs.txt"
+nom_fichier_erreurs = "../Documents/erreurs.txt"
+nom_fichier_entree = "../Documents/Simulateur_donnees.csv"
+nom_fichier_sortie = "../Documents/csv_serveur.csv"
 #Liste des descripteurs que l'on récupère
 descripteurs = ["Date", "Time", "Cloud Condition", "Cloud Value", "Rain Condition","Rain Value", "Ambient Temperature", "Wind Condition", "Wind Value","Switch Status"]
 
@@ -47,9 +47,8 @@ def get_2derniere_mins(fichier):
   #Securité
   while len(nouveau_tableau) < 12:
     nouveau_tableau.append("Fausse ligne")
-    print("Routine : Fausse ligne ajoutée")
-    ecrire_logs("Routine : Fausse ligne ajoutée")
-    ecrire_erreur("Routine : Fausse ligne ajoutée")
+    ecrire_logs("Fausse ligne ajoutée")
+    ecrire_erreur("Fausse ligne ajoutée")
   return nouveau_tableau
 
 def moyenne_2mins(fichier):
@@ -150,8 +149,6 @@ def moyenne_2mins(fichier):
         reponse = "Closed"
         break
     return reponse
-
-
 
   tableau_sortie = []
   #Ajoute les colonnes utiles
