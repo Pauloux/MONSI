@@ -1,10 +1,9 @@
 import time
 import matplotlib.pyplot as plt
 
-nom_fichier_logs = "logs.txt"
-nom_fichier_erreurs = "erreurs.txt"
-nom_fichier_alertes = "alertes.txt"
-precedentes_alertes = []
+nom_fichier_logs = "../Documents/logs.txt"
+nom_fichier_erreurs = "../Documents/erreurs.txt"
+nom_fichier_csv_serveur = "../Documents/csv_serveur.csv"
 
 def get_heure():
     return time.strftime("%H:%M:%S", time.localtime())
@@ -24,12 +23,6 @@ def ecrire_erreur(ligne):
     fichier.write(ligne)
     fichier.close()
 
-def ecrire_alertes(ligne):
-    fichier = open(nom_fichier_alertes, "a")
-    ligne = ligne + "\n"
-    fichier.write(ligne)
-    fichier.close()
-
 def fichier_existe(nom_fichier):
     try:
         fichier = open(nom_fichier, "r")
@@ -42,20 +35,16 @@ def clear_fichier(nom_fichier):
     fichier = open(nom_fichier, "w")
     fichier.close()
 
-#Création des fichiers logs, erreur et alertes s'ils n'existent pas
+#Création des fichiers logs et erreur s'ils n'existent pas
 if not fichier_existe(nom_fichier_logs) :
     fichier_logs = open(nom_fichier_logs, "x")
     fichier_logs.close()
 if not fichier_existe(nom_fichier_erreurs) :
     fichier_erreurs = open(nom_fichier_erreurs, "x")
     fichier_erreurs.close()
-if not fichier_existe(nom_fichier_alertes) :
-    fichier_alertes = open(nom_fichier_alertes, "x")
-    fichier_alertes.close()
-#Remise a zéro des fichiers de logs, d'erreurs et d'alertes
+#Remise a zéro des fichiers de logs et d'erreurs
 clear_fichier(nom_fichier_logs)
 clear_fichier(nom_fichier_erreurs)
-clear_fichier(nom_fichier_alertes)
 
 def get_derniere_heure(fichier):
   """
@@ -83,13 +72,6 @@ def get_date_heure(fichier):
     heure = ligne[1]
     fichier.seek(0, 0)
     return date + " | " + heure
-
-def get_precedentes_alertes(nom_fichier):
-    precedentes_alertes = []
-    fichier_alertes = open(nom_fichier, "r")
-    precedentes_alertes = fichier_alertes.readlines()
-    fichier_alertes.close()
-    return precedentes_alertes
 
 def get_ordonnee(num_colonne, fichier):
     ordonnees = []
@@ -132,27 +114,6 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
     #Inverse les valeur si besoin
     if parametres["inverser"]:
         ordonnees = [parametres["maximum"] - element for element in ordonnees]
-
-    valeur_maximum = max(ordonnees)
-    if valeur_maximum >= parametres["deuxieme_palier"]:
-        nom_alerte = titre + " 2"
-        if nom_alerte + "\n" not in precedentes_alertes:
-            print("Image : alerte " + nom_alerte + " ecrite dans : " + nom_fichier_alertes)
-            ecrire_logs("Image : alerte " + nom_alerte + " ecrite dans : " + nom_fichier_alertes)
-            ecrire_alertes(nom_alerte)
-        else:
-            print("Image : alerte " + nom_alerte + " deja notifiee")
-            ecrire_logs("Image : alerte " + nom_alerte + " deja notifiee")
-    elif valeur_maximum >= parametres["premier_palier"]:
-        nom_alerte = titre + " 1"
-        if nom_alerte + "\n" not in precedentes_alertes:
-            print("Image : alerte " + nom_alerte + " ecrite dans : " + nom_fichier_alertes)
-            ecrire_logs("Image : alerte " + nom_alerte + " ecrite dans : " + nom_fichier_alertes)
-            ecrire_alertes(nom_alerte)
-        else:
-            print("Image : alerte " + nom_alerte + " deja notifiee")
-            ecrire_logs("Image : alerte " + nom_alerte + " deja notifiee")
-
     #Dessine le trait des valeurs
     plt.plot(abscisse, ordonnees, color=parametres["couleur_trait"])
     #Dessine les trois zones en fond
@@ -170,20 +131,44 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
     if parametres["nom_axe_y"] != None:
         plt.ylabel(parametres["nom_axe_y"], color=parametres["couleur_ecriture"])
     #Enregistre le fichier
-    nom_fichier = parametres["titre"] + ".png"
+    nom_fichier = "../Documents/" + parametres["titre"] + ".png"
     plt.savefig(nom_fichier, transparent=True)
     #Réinitialise le graphique pour le prochain coup
     plt.cla()
 
+seuils = {
+    "Vent" : {
+        "minimum" : 0,
+        "premier_seuil" : 5,
+        "deuxieme_seuil" : 10,
+        "maximum" : 40
+    },
+    "Nuage" : {
+        "minimum" : -30,
+        "premier_seuil" : -5,
+        "deuxieme_seuil" : 0,
+        "maximum" : 40
+    },
+    "Pluie" : {
+        "minimum" : 0,
+        "premier_seuil" : 1700,
+        "deuxieme_seuil" : 2000,
+        "maximum" : 2800
+    },
+    "Temperature" : {
+        "minimum" : -10,
+        "premier_seuil" : 0,
+        "deuxieme_seuil" : 20,
+        "maximum" : 40
+    }
+}
+
 def lancer():
-    global precedentes_alertes
-    precedentes_alertes = get_precedentes_alertes(nom_fichier_alertes)
-    clear_fichier(nom_fichier_alertes)
-    fichier = open("csv_serveur.csv", "r")
-    get_image(0, 5, 10, 40, 8, "Wind", fichier)
-    get_image(-30, -5, 0, 40, 3, "Cloud", fichier)
-    get_image(0, 1700, 2000, 2800, 5, "Rain", fichier, inverser=True)
-    get_image(-10, 0, 20, 40, 6, "Temperature", fichier)
+    fichier = open(nom_fichier_csv_serveur, "r")
+    get_image(seuils["Vent"]["minimum"], seuils["Vent"]["premier_seuil"], seuils["Vent"]["deuxieme_seuil"], seuils["Vent"]["maximum"], 8, "Vent", fichier)
+    get_image(seuils["Nuage"]["minimum"], seuils["Nuage"]["premier_seuil"], seuils["Nuage"]["deuxieme_seuil"], seuils["Nuage"]["maximum"], 3, "Nuage", fichier)
+    get_image(seuils["Pluie"]["minimum"], seuils["Pluie"]["premier_seuil"], seuils["Pluie"]["deuxieme_seuil"], seuils["Pluie"]["maximum"], 5, "Pluie", fichier, inverser=True)
+    get_image(seuils["Temperature"]["minimum"], seuils["Temperature"]["premier_seuil"], seuils["Temperature"]["deuxieme_seuil"], seuils["Temperature"]["maximum"], 6, "Temperature", fichier)
     fichier.close()
     print("Image : Images créées")
     ecrire_logs("Image : Images créées")
