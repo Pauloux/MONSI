@@ -2,9 +2,10 @@ import time
 import routine_convertir_donnees_serveur as routine
 import Simulateur_capteur as simu
 import creation_image as image
+import alertes
 
-nom_fichier_logs = "logs.txt"
-nom_fichier_erreurs = "erreurs.txt"
+nom_fichier_logs = "../Documents/logs.txt"
+nom_fichier_erreurs = "../Documents/erreurs.txt"
 
 def get_heure():
     return time.strftime("%H:%M:%S", time.localtime())
@@ -46,21 +47,20 @@ fichier_logs.close()
 fichier_erreurs = open(nom_fichier_erreurs, "w")
 fichier_erreurs.close()
 
-
 temps_seuil_routine = get_temps()
 temps_seuil_simu = get_temps()
 temps_seuil_image = get_temps()
+temps_seuil_alerte = get_temps()
 #En secondes
-delai_routine = 12
-delai_simu = 1
-delai_image = 12
+acceleration = 10
+delai_routine = 120 / acceleration
+delai_simu = 10 / acceleration
+delai_image = 120 / acceleration
+delai_alerte = 120 / acceleration
 
 #Récupère le nombre de lignes du fichier de sortie pour savoir quelle ligne récuperer dans le fichier d'entrée ensuite
 numero_ligne = 0
 simu.initialisation()
-
-print("Lancement du Simulateur et de la Routine")
-ecrire_logs("Lancement de Simulateur et de la Routine")
 
 while True:
     temps_actu = time.time()
@@ -79,5 +79,10 @@ while True:
         ecrire_logs("Exécution Image")
         image.lancer()
         temps_seuil_image += delai_image
+    if temps_actu >= temps_seuil_alerte:
+        print(get_heure() + " : Exécution Alerte")
+        ecrire_logs("Exécution Alerte")
+        alertes.lancer()
+        temps_seuil_alerte += delai_alerte
     #Pour ne pas sur-utiliser le processeur
-    time.sleep(0.05)
+    time.sleep(1 / acceleration)
