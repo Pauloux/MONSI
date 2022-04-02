@@ -103,14 +103,30 @@ Creation d'un fichier alertes.py pour générer les alertes (actuellement toutes
 Tests pour mettre le site sur un serveur avec Wamp.
 
 16 Mars:
-Les alertes ne s'activent maintenant qu'une fois toutes les 30 minutes pour ne pas faires des alerest tout le temps pour l'utilisateur.
+Les alertes ne s'activent maintenant qu'une fois toutes les 30 minutes pour ne pas faires des alertes tout le temps pour l'utilisateur.
 
 18 Mars:
-Dédcouverte du pc qui servera peut être de serveur mais on a pas le mot de passe donc on à rien fait.
+Prise en charge de la machine qui nous servira de serveur, mais faute d'avoir le mot de passe, nous n'avons pas significativement avancé.
+Essaies sur les pop-up de la page et réglage de problèmes d'affichage du site.
 
 21 Mars:
-Le pc du serveur est si vieux que on peut pas installer avec une clé usb.
-Planification du travail de demain.
+Essaie d'installation de la licence Windows Serveur 2003 que nous avons déjà, mais le serveur de détecte pas notre clé USB.
+Planification du travail à faire le lendemain et début d'essais sur Wamp en localhost.
 
+22 Mars:
+Essaie d'installation de la licence avec un CD cette fois ci. Le serveur n'a pas détecté non plus notre CD.
 
+25 Mars:
+Suite des essais pour installer la licence sur le serveur et mise en place d'une liste des alertes des 30 dernières minutes sur le site. Suite des essais en localhost
+avec Wamp
 
+28 Mars:
+Est-ce qu'on a fait le projet ce jour la ?
+
+1 Avril:
+Téléchargement de la bonne licence cette fois normalement. Nous n'avons ensuite pas pu extraire les fichiers car le fichier de sortie fait plus de 4 Go et la clé
+USB que nous avions ne pouvait pas gérer les fichiers de plus de 4Go. Réglage d'un problème d'affichage de la largeur de la page et messages affichés sur le site plus beaux
+(phrases complètes).
+
+2 Avril:
+Changement de certains noms en français plutôt qu'en anglais (images etc), réflexion sur la structuration des fichiers sur le serveur a terme(Paul).
