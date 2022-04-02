@@ -1,9 +1,9 @@
 import time
 
-nom_fichier_logs = "logs.txt"
-nom_fichier_erreurs = "erreurs.txt"
-nom_fichier_entree = "donnees_brutes.csv"
-nom_fichier_sortie = "Simulateur_donnees.csv"
+nom_fichier_logs = "../Documents/logs.txt"
+nom_fichier_erreurs = "../Documents/erreurs.txt"
+nom_fichier_entree = "../Documents/donnees_brutes.csv"
+nom_fichier_sortie = "../Documents/Simulateur_donnees.csv"
 
 def get_heure():
     return time.strftime("%H:%M:%S", time.localtime())
