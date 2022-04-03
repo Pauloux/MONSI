@@ -1,50 +1,5 @@
-import time
 import matplotlib.pyplot as plt
-
-nom_fichier_logs = "../Documents/logs.txt"
-nom_fichier_erreurs = "../Documents/erreurs.txt"
-nom_fichier_csv_serveur = "../Documents/csv_serveur.csv"
-
-def get_heure():
-    return time.strftime("%H:%M:%S", time.localtime())
-
-def get_temps():
-    return time.time()
-
-def ecrire_logs(ligne):
-    fichier = open(nom_fichier_logs, "a")
-    ligne = get_heure() + " " + ligne + "\n"
-    fichier.write(ligne)
-    fichier.close()
-
-def ecrire_erreur(ligne):
-    fichier = open(nom_fichier_erreurs, "a")
-    ligne = get_heure() + " " + ligne + "\n"
-    fichier.write(ligne)
-    fichier.close()
-
-def fichier_existe(nom_fichier):
-    try:
-        fichier = open(nom_fichier, "r")
-        fichier.close()
-        return True
-    except IOError as message_erreur:
-        return False
-
-def clear_fichier(nom_fichier):
-    fichier = open(nom_fichier, "w")
-    fichier.close()
-
-#Création des fichiers logs et erreur s'ils n'existent pas
-if not fichier_existe(nom_fichier_logs) :
-    fichier_logs = open(nom_fichier_logs, "x")
-    fichier_logs.close()
-if not fichier_existe(nom_fichier_erreurs) :
-    fichier_erreurs = open(nom_fichier_erreurs, "x")
-    fichier_erreurs.close()
-#Remise a zéro des fichiers de logs et d'erreurs
-clear_fichier(nom_fichier_logs)
-clear_fichier(nom_fichier_erreurs)
+from fonctions_communes_et_parametres import *
 
 def get_derniere_heure(fichier):
   """
@@ -84,7 +39,7 @@ def get_ordonnee(num_colonne, fichier):
       ordonnees.append(valeur)
     return ordonnees
 
-def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, titre, fichier,  **kargs):
+def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, titre, fichier, inverser, **kargs):
     parametres = {
         "minimum" : minimum,
         "premier_palier" : premier_palier,
@@ -98,7 +53,7 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
         "couleur_ecriture" : "#BBE1FA",
         "couleur_trait" : "black",
         "alpha" : 1,
-        "inverser" : False,
+        "inverser" : inverser,
         "nom_axe_y" : None
     }
     #Modifie les paramtres par ceux passés en arguments optionnels
@@ -136,39 +91,10 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
     #Réinitialise le graphique pour le prochain coup
     plt.cla()
 
-seuils = {
-    "Vent" : {
-        "minimum" : 0,
-        "premier_seuil" : 5,
-        "deuxieme_seuil" : 10,
-        "maximum" : 40
-    },
-    "Nuage" : {
-        "minimum" : -30,
-        "premier_seuil" : -5,
-        "deuxieme_seuil" : 0,
-        "maximum" : 40
-    },
-    "Pluie" : {
-        "minimum" : 0,
-        "premier_seuil" : 1700,
-        "deuxieme_seuil" : 2000,
-        "maximum" : 2800
-    },
-    "Temperature" : {
-        "minimum" : -10,
-        "premier_seuil" : 0,
-        "deuxieme_seuil" : 20,
-        "maximum" : 40
-    }
-}
-
 def lancer():
     fichier = open(nom_fichier_csv_serveur, "r")
-    get_image(seuils["Vent"]["minimum"], seuils["Vent"]["premier_seuil"], seuils["Vent"]["deuxieme_seuil"], seuils["Vent"]["maximum"], 8, "Vent", fichier)
-    get_image(seuils["Nuage"]["minimum"], seuils["Nuage"]["premier_seuil"], seuils["Nuage"]["deuxieme_seuil"], seuils["Nuage"]["maximum"], 3, "Nuage", fichier)
-    get_image(seuils["Pluie"]["minimum"], seuils["Pluie"]["premier_seuil"], seuils["Pluie"]["deuxieme_seuil"], seuils["Pluie"]["maximum"], 5, "Pluie", fichier, inverser=True)
-    get_image(seuils["Temperature"]["minimum"], seuils["Temperature"]["premier_seuil"], seuils["Temperature"]["deuxieme_seuil"], seuils["Temperature"]["maximum"], 6, "Temperature", fichier)
+    for element in seuils:
+        get_image(element["minimum"], element["premier_seuil"], element["deuxieme_seuil"], element["maximum"], element["numero_colonne"], element["nom"], fichier, element["inverser_image"])
     fichier.close()
     print("Image : Images créées")
     ecrire_logs("Image : Images créées")
