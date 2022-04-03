@@ -130,3 +130,9 @@ USB que nous avions ne pouvait pas gérer les fichiers de plus de 4Go. Réglage 
 
 2 Avril:
 Changement de certains noms en français plutôt qu'en anglais (images etc), réflexion sur la structuration des fichiers sur le serveur a terme(Paul).
+
+3 Avril:
+Création du fichier fontctions_communes_et_parametres pour ne pas répéter certaines fonctions identiques dans les autres fichiers ainsi que les parametres pour les seuils
+d'image et les noms des fichiers(Paul).
+Création de la fonction verifier_fichiers() qui vérifie si tous les fichiers existent et les crées si nécessaires(Paul).
+
