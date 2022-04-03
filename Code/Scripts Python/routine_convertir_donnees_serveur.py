@@ -1,37 +1,4 @@
-import time
-
-nom_fichier_logs = "../Documents/logs.txt"
-nom_fichier_erreurs = "../Documents/erreurs.txt"
-nom_fichier_entree = "../Documents/Simulateur_donnees.csv"
-nom_fichier_sortie = "../Documents/csv_serveur.csv"
-#Liste des descripteurs que l'on récupère
-descripteurs = ["Date", "Time", "Cloud Condition", "Cloud Value", "Rain Condition","Rain Value", "Ambient Temperature", "Wind Condition", "Wind Value","Switch Status"]
-
-def get_heure():
-    return time.strftime("%H:%M:%S", time.localtime())
-
-def get_temps():
-    return time.time()
-
-def ecrire_logs(ligne):
-    fichier = open(nom_fichier_logs, "a")
-    ligne = get_heure() + " " + ligne + "\n"
-    fichier.write(ligne)
-    fichier.close()
-
-def ecrire_erreur(ligne):
-    fichier = open(nom_fichier_erreurs, "a")
-    ligne = get_heure() + " " + ligne + "\n"
-    fichier.write(ligne)
-    fichier.close()
-
-def fichier_existe(nom_fichier):
-    try:
-        fichier = open(nom_fichier, "r")
-        fichier.close()
-        return True
-    except IOError as message_erreur:
-        return False
+from fonctions_communes_et_parametres import *
 
 def get_2derniere_mins(fichier):
   """
@@ -179,25 +146,9 @@ def lancer():
   """
   Ouvre les fichiers, écrit dedans et les referme
   """
-  #Créer un fichier csv avec la liste des descripteur si le fichier n'existe pas
-  if not fichier_existe(nom_fichier_sortie):
-    print("Routine : Fichier de sortie inexistant, création de " + nom_fichier_sortie)
-    ecrire_logs("Routine : Fichier de sortie inexistant, création de " + nom_fichier_sortie)
-    ecrire_erreur("Routine : Fichier de sortie inexistant, création de " + nom_fichier_sortie)
-    fichier_sortie = open(nom_fichier_sortie, "a")
-    fichier_sortie.write(",".join(descripteurs))
-    fichier_sortie.close()
-
-  #Vérifie si le fichier d'entrée existe
-  if not fichier_existe(nom_fichier_entree):
-    print("Routine : Fichier d'entrée inexistant, arrêt de la routine")
-    ecrire_logs("Routine : Fichier d'entrée inexistant, arrêt de la routine")
-    ecrire_erreur("Routine : Fichier d'entrée inexistant, arrêt de la routine")
-    return None
-
   #On ouvre les fichiers
-  fichier_entree = open(nom_fichier_entree, "r")
-  fichier_sortie = open(nom_fichier_sortie, "a")
+  fichier_entree = open(nom_fichier_capteur, "r")
+  fichier_sortie = open(nom_fichier_csv_serveur, "a")
 
   #Securite
   #Compte le nombre de ligne
@@ -214,8 +165,8 @@ def lancer():
   #On écrit dedans
   fichier_sortie.write("\n")
   fichier_sortie.write(",".join(moyenne_2mins(fichier_entree)))
-  print("Routine : Données écrites dans " + nom_fichier_sortie)
-  ecrire_logs("Routine : Données écrites dans " + nom_fichier_sortie)
+  print("Routine : Données écrites dans " + nom_fichier_csv_serveur)
+  ecrire_logs("Routine : Données écrites dans " + nom_fichier_csv_serveur)
 
   #On ferme les fichiers
   fichier_entree.close()
