@@ -1,12 +1,9 @@
-Descripteurs dont on a bseoin : Date, heure, situation nuage, valeur nuage, situation pluie, valeur pluie, temperature ambiante, status (si on doit fermer l'observatoire), situation vent, valeur vent
+Descripteurs dont on a besoin : Date, heure, situation nuage, valeur nuage, situation pluie, valeur pluie, temperature ambiante, status (si on doit fermer l'observatoire), situation vent, valeur vent
 
 Documentation AAg Cloudwatcher : https://lunaticoastro.com/aagcw/enhelp/
 
 A faire :
-Vérifier si le capteur ne s'est pas arrêté (vérifier la date)
 Ne pas faire d'erreur si le fichier est déjà ouvert et donc que la routine ne peut pas y accéder.
 Voir quelles sont les valeurs limites pour les alertes.
-Peut etre faudrait-il lisser les valeurs pour avoir des zones de taille plus homogène.
-Faire une sécurité pour que la création d'images et d'alertes ne fassent pas d'erreur s'il n'y a pas assez de valeurs pour. Mettre au propre la partie qui fait
-ça pour la routine.
 Voir si on supprime les données au bout d'un moment.
+Remettre les valeurs des alertes ("Windy" etc) dans csv_serveur pour regler les alertes depuis le logiciel. Donc changer la création des alertes.
