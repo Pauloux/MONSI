@@ -1,5 +1,4 @@
 31 Janvier 2021:
-  En cours :
 Annonce de la réalisation des projets.
 Choix de notre projet, qui est de récupérer les données d'une station météo à l'observatoire de la Perdrix pour les afficher sur un site web pour connaitre les conditions météos à distance.
 Début de la réalisation d'un cahier des charges, et des éléments à demander aux utilisateurs
@@ -135,4 +134,15 @@ Changement de certains noms en français plutôt qu'en anglais (images etc), ré
 Création du fichier fontctions_communes_et_parametres pour ne pas répéter certaines fonctions identiques dans les autres fichiers ainsi que les parametres pour les seuils
 d'image et les noms des fichiers(Paul).
 Création de la fonction verifier_fichiers() qui vérifie si tous les fichiers existent et les crées si nécessaires(Paul).
+
+4 Avril:
+On a essayé de mettre le fichier que l'on avait trouvé vendredi mais ça n'a pas marché. En fait c'est une machine virtuelle. On a essayé de mettre wamp
+sur le serveur mais il n'est pas connecté à internet car le réseau du lycée le bloque car il ne le connait pas. De plus, il n'arrive pas a lire le
+fichier d'installation de wamp que l'on a mis via une clé usb. On a donc avancé un peu sur la mise au propre du code et on a enlevé les descipteurs
+que l'on utilisaient pas dans csv_serveur.
+
+6 Avril:
+Création d'une fonction qui compte le nombre de lignes dans un fichier et mise en place d'une sécurité pour que ça ne mette pas d'erreur quand on essaie
+de créer des images ou des alertes quand il n'y a pas assez de lignes dans le fichier csv_serveur(Paul).
+
 
