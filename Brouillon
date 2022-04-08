@@ -5,5 +5,3 @@ Documentation AAg Cloudwatcher : https://lunaticoastro.com/aagcw/enhelp/
 A faire :
 Ne pas faire d'erreur si le fichier est déjà ouvert et donc que la routine ne peut pas y accéder.
 Voir si on supprime les données au bout d'un moment ?
-Donc changer la création des alertes pour que ça prenne en fonction des descripteurs du logiciel du capteur et non des seuils que l'on met dans notre
-script Python.
