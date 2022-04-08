@@ -11,7 +11,7 @@ temps_seuil_simu = get_temps()
 temps_seuil_image = get_temps()
 temps_seuil_alerte = get_temps()
 #En secondes
-acceleration = 10
+acceleration = 20
 delai_routine = 120 / acceleration
 delai_simu = 10 / acceleration
 delai_image = 120 / acceleration
@@ -22,25 +22,17 @@ numero_ligne = 0
 simu.initialisation()
 
 while True:
-    temps_actu = time.time()
+    temps_actu = get_temps()
     if temps_actu >= temps_seuil_routine:
-        print(get_heure() + " : Exécution Routine")
-        ecrire_logs("Exécution Routine")
         routine.lancer()
         temps_seuil_routine += delai_routine
     if temps_actu >= temps_seuil_simu:
-        print(get_heure() + " : Exécution Simulateur")
-        ecrire_logs("Exécution Simulateur")
         simu.lancer()
         temps_seuil_simu += delai_simu
     if temps_actu >= temps_seuil_image:
-        print(get_heure() + " : Exécution Image")
-        ecrire_logs("Exécution Image")
         image.lancer()
         temps_seuil_image += delai_image
     if temps_actu >= temps_seuil_alerte:
-        print(get_heure() + " : Exécution Alerte")
-        ecrire_logs("Exécution Alerte")
         alertes.lancer()
         temps_seuil_alerte += delai_alerte
     #Pour ne pas sur-utiliser le processeur
