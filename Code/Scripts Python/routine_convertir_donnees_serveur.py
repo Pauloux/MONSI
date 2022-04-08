@@ -57,6 +57,7 @@ def moyenne_2mins(fichier):
     #On retourne le résultat arrondis et sous forme de chaine de caractere pour l'injecter dans le document csv ensuite
     return str(round(somme / 12, 1))
 
+  tableau_sortie = []
   def valeur_majoritaire_colonne(num_colonne):
     """
     Renvoie la valeur majoritaire des valeurs de la colonne que l'on a passé en argument(numero de colonne) des 12 denières lignes ajoutées au fichier (2 minutes)
@@ -76,7 +77,6 @@ def moyenne_2mins(fichier):
           }
       #Ensuite on ajoute 1 au compteur de cette valeur dans tous les cas
       dictionnaire[valeur]["compteur"] += 1
-
     #On cherche le nombre d'occurrence le plus grand
     maximums = {}
     valeur_maximum = -float("inf")
@@ -88,34 +88,14 @@ def moyenne_2mins(fichier):
       elif valeur["compteur"] > valeur_maximum:
         valeur_maximum = valeur["compteur"]
         maximums = {cle : valeur["premiere occurrence"]}
-
-
     #On cherche la premiere occurrence la plus petite
     valeur_premiere_occurrence_min = float("inf")
     cle_premiere_occurrence_min = None
-
     for cle, valeur in maximums.items():
       if valeur < valeur_premiere_occurrence_min:
         cle_premiere_occurrence_min = cle
         valeur_premiere_occurrence_min = valeur
-
     return cle_premiere_occurrence_min
-
-  def valeur_status():
-    """
-    Renvoie "Closed" si la valeur du capteur est "Closed" au moins une fois durant les deux dernières minutes. Renvoie "Opened" sinon
-    """
-    reponse = "Opened"
-    for ligne in range(12):
-      #Passe la ligne si elle n'est pas valide
-      if not ligne_est_valide(ligne):
-        continue
-      valeur = tableau[ligne][13]
-      #Dès qu'on l'a trouvé une fois, on peut arreter de chercher
-      if valeur == "Closed":
-        reponse = "Closed"
-        break
-    return reponse
 
   tableau_sortie = []
   #Ajoute les colonnes utiles
@@ -123,22 +103,20 @@ def moyenne_2mins(fichier):
   tableau_sortie.append(get_derniere_valeur(0))
   #Heure
   tableau_sortie.append(get_derniere_valeur(1))
-  #Cloud condition
-  tableau_sortie.append(valeur_majoritaire_colonne(2))
-  #Cloud Value
-  tableau_sortie.append(get_moyenne_colonne(5))
-  #Rain Condition
-  tableau_sortie.append(valeur_majoritaire_colonne(3))
-  #Rain Value
-  tableau_sortie.append(get_moyenne_colonne(7))
-  #Ambient Temperature
-  tableau_sortie.append(get_moyenne_colonne(9))
-  #Wind Condition
-  tableau_sortie.append(valeur_majoritaire_colonne(17))
   #Wind Value
   tableau_sortie.append(get_moyenne_colonne(18))
-  #Switch Status
-  tableau_sortie.append(valeur_status())
+  #Wind Condition
+  tableau_sortie.append(valeur_majoritaire_colonne(17))
+  #Cloud Value
+  tableau_sortie.append(get_moyenne_colonne(5))
+  #Cloud condition
+  tableau_sortie.append(valeur_majoritaire_colonne(2))
+  #Ambient Temperature
+  tableau_sortie.append(get_moyenne_colonne(9))
+  #Rain Value
+  tableau_sortie.append(get_moyenne_colonne(7))
+  #Rain Condition
+  tableau_sortie.append(valeur_majoritaire_colonne(3))
 
   return tableau_sortie
 
@@ -146,27 +124,20 @@ def lancer():
   """
   Ouvre les fichiers, écrit dedans et les referme
   """
+  #Securite
+  #S'il n'y a pas assez de lignes, on arrete tout (12 + 1 de descripteurs)
+  if nombre_lignes(nom_fichier_capteur) < 13:
+    print("Routine : valeurs d'entrées insuffisantes")
+    ecrire_erreur("Routine : valeurs d'entrées insuffisantes")
+    return
+
   #On ouvre les fichiers
   fichier_entree = open(nom_fichier_capteur, "r")
   fichier_sortie = open(nom_fichier_csv_serveur, "a")
 
-  #Securite
-  #Compte le nombre de ligne
-  nombre_lignes = len(fichier_entree.readlines())
-  #Replace le curseur au début du fichier pour pouvoir le lire
-  fichier_entree.seek(0, 0)
-  #S'il n'y a pas assez de lignes, on arrete tout (12 + 1 de descripteurs)
-  if nombre_lignes < 13:
-    print("Routine : valeurs d'entrées insuffisantes (" + str(nombre_lignes) + " lignes)")
-    fichier_entree.close()
-    fichier_sortie.close()
-    return
-
   #On écrit dedans
   fichier_sortie.write("\n")
   fichier_sortie.write(",".join(moyenne_2mins(fichier_entree)))
-  print("Routine : Données écrites dans " + nom_fichier_csv_serveur)
-  ecrire_logs("Routine : Données écrites dans " + nom_fichier_csv_serveur)
 
   #On ferme les fichiers
   fichier_entree.close()
