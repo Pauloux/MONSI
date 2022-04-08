@@ -11,12 +11,6 @@ def get_derniere_heure(fichier):
   for i in range(len(tableau)):
     ligne = tableau[i][:-3].split(",")
     nouveau_tableau.append(ligne)
-  #Securité
-  while len(nouveau_tableau) < 30:
-    nouveau_tableau.append("Fausse ligne")
-    print("Image : Fausse ligne ajoutée")
-    ecrire_logs("Image : Fausse ligne ajoutée")
-    ecrire_erreur("Image : Fausse ligne ajoutée")
   return nouveau_tableau
 
 def get_date_heure(fichier):
@@ -92,9 +86,14 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
     plt.cla()
 
 def lancer():
+    #Securite
+    #S'il n'y a pas assez de lignes, on arrete tout (30 + 1 de descripteurs)
+    if nombre_lignes(nom_fichier_csv_serveur) < 32:
+        print("Image : valeurs d'entrées insuffisantes")
+        ecrire_erreur("Image : valeurs d'entrés insuffisantes")
+        return
+
     fichier = open(nom_fichier_csv_serveur, "r")
     for element in seuils:
-        get_image(element["minimum"], element["premier_seuil"], element["deuxieme_seuil"], element["maximum"], element["numero_colonne"], element["nom"], fichier, element["inverser_image"])
+        get_image(element["minimum"], element["premier_seuil"], element["deuxieme_seuil"], element["maximum"], element["numero_colonne_valeur"], element["nom"], fichier, element["inverser_image"])
     fichier.close()
-    print("Image : Images créées")
-    ecrire_logs("Image : Images créées")
