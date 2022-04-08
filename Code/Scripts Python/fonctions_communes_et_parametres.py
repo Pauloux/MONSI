@@ -8,13 +8,19 @@ nom_fichier_csv_serveur = "../Documents/csv_serveur.csv"
 nom_fichier_alertes_historique = "../Documents/alertes_historique.txt"
 nom_fichier_alertes_site = "../Documents/alertes_site.txt"
 
+#En secondes
+delai_entre_deux_alertes = 1800
+
 #Liste des descripteurs que l'on récupère dans csv_serveur
-descripteurs_csv_serveur = ["Date", "Time", "Cloud Condition", "Cloud Value", "Rain Condition","Rain Value", "Ambient Temperature", "Wind Condition", "Wind Value","Switch Status"]
+descripteurs_csv_serveur = ["Date", "Time", "Wind Value", "Wind Condition", "Cloud Value", "Cloud Condition", "Ambient Temperature", "Rain Value", "Rain Condition"]
 
 seuils = [
     {
         "nom" : "Vent",
-        "numero_colonne" : 8,
+        "numero_colonne_valeur" : 2,
+        "numero_colonne_condition" : 3,
+        "condition_moyenne" : "Windy",
+        "condition_mauvaise" : "Very Windy",
         "minimum" : 0,
         "premier_seuil" : 5,
         "deuxieme_seuil" : 10,
@@ -23,7 +29,10 @@ seuils = [
     },
     {
         "nom" : "Nuage",
-        "numero_colonne" : 3,
+        "numero_colonne_valeur" : 4,
+        "numero_colonne_condition" : 5,
+        "condition_moyenne" : "Cloudy",
+        "condition_mauvaise" : "Overcast",
         "minimum" : -30,
         "premier_seuil" : -5,
         "deuxieme_seuil" : 0,
@@ -32,7 +41,10 @@ seuils = [
     },
     {
         "nom" : "Pluie",
-        "numero_colonne" : 5,
+        "numero_colonne_valeur" : 7,
+        "numero_colonne_condition" : 8,
+        "condition_moyenne" : "Wet",
+        "condition_mauvaise" : "Rain",
         "minimum" : 0,
         "premier_seuil" : 1700,
         "deuxieme_seuil" : 2000,
@@ -41,7 +53,8 @@ seuils = [
     },
     {
         "nom" : "Temperature",
-        "numero_colonne" : 6,
+        "numero_colonne_valeur" : 6,
+        "numero_colonne_condition" : None,
         "minimum" : -10,
         "premier_seuil" : 0,
         "deuxieme_seuil" : 20,
@@ -85,8 +98,16 @@ def fichier_existe(nom_fichier):
         fichier = open(nom_fichier, "r")
         fichier.close()
         return True
-    except IOError as message_erreur:
+    except:
         return False
+
+def nombre_lignes(nom_fichier):
+    if not fichier_existe(nom_fichier):
+        return 0
+    fichier = open(nom_fichier, "r")
+    retour = len(fichier.readlines())
+    fichier.close()
+    return retour
 
 def clear_fichier(nom_fichier):
     fichier = open(nom_fichier, "w")
@@ -116,7 +137,7 @@ def verifier_fichiers():
         ecrire_logs("Simulateur : Fichier d'entrée inexistant, arrêt du Simulateur")
         ecrire_erreur("Simulateur : Fichier d'entrée inexistant, arrêt du Simulateur")
         raise ValueError("Fichier " + nom_fichier_donnees_brutes_simu + "inexistant")
-    
+
     #Fichier_capteur
     #Créer le fichier s'il n'existe pas
     if not fichier_existe(nom_fichier_capteur):
@@ -135,7 +156,7 @@ def verifier_fichiers():
         fichier_sortie = open(nom_fichier_csv_serveur, "a")
         fichier_sortie.write(",".join(descripteurs_csv_serveur))
         fichier_sortie.close()
-    
+
     #Fichier alertes_historique
     #Créer le fichier s'il n'existe pas
     if not fichier_existe(nom_fichier_alertes_historique) :
@@ -143,7 +164,7 @@ def verifier_fichiers():
         fichier_alertes_historique.close()
     #Puis le remet à zéro
     clear_fichier(nom_fichier_alertes_historique)
-    
+
     #Fichier alertes_site
     #Créer le fichier s'il n'existe pas
     if not fichier_existe(nom_fichier_alertes_site) :
