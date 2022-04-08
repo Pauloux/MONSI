@@ -153,6 +153,8 @@ J'ai remis les descripteurs que j'avais enlevé quelques jours plus tôt sur dem
 8 Avril:
 Les alertes se générent par rapport aux conditions données par le capteur et non plus à partir des valeurs. Les seuils peuvent donc être reglés
 sur le logiciel du capteur, et les seuils de couleurs sur les graphiques peuvent être différents des seuils des alertes si on le souhaite.
-
+On a aussi essayé de mettre wamp sur l'ordinateur que le club Astro nous a donné, mais sans succès. En effet, il faut en plus de wamp installer
+des paquets qui sont normalement dans visual studio, sauf que pour installer visual studio, il faut une connection internet or, on est bien
+connecté à internet, mais la connexion est bloquée (même en salle de SI).
 
 
