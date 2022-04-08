@@ -3,5 +3,4 @@ Descripteurs dont on a besoin : Date, heure, situation nuage, valeur nuage, situ
 Documentation AAg Cloudwatcher : https://lunaticoastro.com/aagcw/enhelp/
 
 A faire :
-Ne pas faire d'erreur si le fichier est déjà ouvert et donc que la routine ne peut pas y accéder.
 Voir si on supprime les données au bout d'un moment ?
