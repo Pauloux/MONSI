@@ -65,12 +65,6 @@
             else if ($nouvelle_ligne == "Nuage_2") {
               $nouvelle_ligne = "Nuage en zone rouge";
             }
-            else if ($nouvelle_ligne == "Temperature_1") {
-              $nouvelle_ligne = "Temperature en zone jaune";
-            }
-            else if ($nouvelle_ligne == "Temperature_2") {
-              $nouvelle_ligne = "Temperature en zone rouge";
-            }
             else if ($nouvelle_ligne == "Pluie_1") {
               $nouvelle_ligne = "Pluie en zone jaune";
             }
@@ -112,12 +106,6 @@
     }
     else if($line == "Nuage_2") {
       echo "<script>alert(\"Les nuages passent en zone rouge !\")</script>";
-    }
-    else if($line == "Temperature_1") {
-      echo "<script>alert(\"La température passe en zone jaune !\")</script>";
-    }
-    else if($line == "Temperature_2") {
-      echo "<script>alert(\"La température passe en zone rouge !\")</script>";
     }
     else if($line == "Pluie_1") {
       echo "<script>alert(\"La pluie passe en zone jaune !\")</script>";
