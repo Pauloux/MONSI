@@ -10,9 +10,10 @@
        <!--Boutons pour passer d'une page à l'autre -->
     <div id ="menu-centered">
       <ul>
-      <li><a href="#" title="Vent/Nuages">Vent/Nuage</a></li>
-      <li><a href="#" title="Temperature">Temperature</a></li>
-      <li><a href="#" title="Pluie">Pluie</a></li>
+      <li><a href="SiteNSIAstroPage1" title="Vent/Nuages">Vent/Nuage</a></li>
+      <li><a href="" title="Temperature">Temperature</a></li>
+      <li><a href="SiteNSIAstroPage3" title="Pluie">Pluie</a></li>
+      <li><a href="SiteNSIAstroPage4" title="Caméra">Caméra</a></li>
       </ul>
     </div>
     </header>
@@ -92,28 +93,30 @@
   $handle = fopen("../Documents/alertes_site.txt", "r");
   //Et on lit chaque ligne
   while (($line = fgets($handle)) !== false) {
-    if($line == "Vent_1\n") {
+    //On enlève les espaces au début et la fin car cela pourrait gêner les comparaisons suivantes
+    $line = trim($line);
+    if($line == "Vent_1") {
       echo "<script>alert(\"Le vent passe en zone jaune !\")</script>";
     }
-    else if($line == "Vent_2\n") {
+    else if($line == "Vent_2") {
       echo "<script>alert(\"Le vent passe en zone rouge !\")</script>";
     }
-    else if($line == "Nuage_1\n") {
+    else if($line == "Nuage_1") {
       echo "<script>alert(\"Les nuages passent en zone jaune !\")</script>";
     }
-    else if($line == "Nuage_2\n") {
+    else if($line == "Nuage_2") {
       echo "<script>alert(\"Les nuages passent en zone rouge !\")</script>";
     }
-    else if($line == "Temperature_1\n") {
+    else if($line == "Temperature_1") {
       echo "<script>alert(\"La température passe en zone jaune !\")</script>";
     }
-    else if($line == "Temperature_2\n") {
+    else if($line == "Temperature_2") {
       echo "<script>alert(\"La température passe en zone rouge !\")</script>";
     }
-    else if($line == "Pluie_1\n") {
+    else if($line == "Pluie_1") {
       echo "<script>alert(\"La pluie passe en zone jaune !\")</script>";
     }
-    else if($line == "Pluie_2\n") {
+    else if($line == "Pluie_2") {
       echo "<script>alert(\"La pluie passe en zone rouge !\")</script>";
     }
     else {
@@ -122,6 +125,8 @@
   }
   //On referme le document quand on a fini
   fclose($handle);
+  //On actualise la page toutes les 120 secondes
+  header("Refresh:120");
 ?>
   </body>
 </html>
