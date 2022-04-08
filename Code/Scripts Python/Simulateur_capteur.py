@@ -1,13 +1,8 @@
 from fonctions_communes_et_parametres import *
 
 def initialisation():
-    #Crée le fichier s'il n'existe pas
-    fichier_sortie = open(nom_fichier_capteur, "r")
-
     global numero_ligne
-    numero_ligne = len(fichier_sortie.readlines())
-
-    fichier_sortie.close()
+    numero_ligne = nombre_lignes(nom_fichier_capteur)
 
 def lancer():
     global numero_ligne
