@@ -149,3 +149,10 @@ de créer des images ou des alertes quand il n'y a pas assez de lignes dans le f
 J'ai branché l'ordinateur pour voir si ça marcherais demain. J'ai bien fait car il fallait un mot de passe que j'ai pu demander. Autrement, nous n'aurions
 rien pu faire le lendemain(Paul).
 J'ai remis les descripteurs que j'avais enlevé quelques jours plus tôt sur demande du club Astro(Paul).
+
+8 Avril:
+Les alertes se générent par rapport aux conditions données par le capteur et non plus à partir des valeurs. Les seuils peuvent donc être reglés
+sur le logiciel du capteur, et les seuils de couleurs sur les graphiques peuvent être différents des seuils des alertes si on le souhaite.
+
+
+
