@@ -6,3 +6,4 @@ A faire :
 Voir si on supprime les données au bout d'un moment ?
 Rajouter la caméra au site
 Est ce qu'on arrete la routine la journée ?
+Met des erreurs dans le fichier d'erreur s'il n'y a pas 2 minutse d'écart entre la dernière et la 12ème dernière ligne quand on fait la routine
