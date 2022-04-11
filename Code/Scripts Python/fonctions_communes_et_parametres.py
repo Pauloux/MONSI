@@ -1,5 +1,6 @@
+#Importe la librairie Time
 import time
-
+#Importation des autres fichier
 nom_fichier_logs = "../Documents/logs.txt"
 nom_fichier_erreurs = "../Documents/erreurs.txt"
 nom_fichier_donnees_brutes_simu = "../Documents/donnees_brutes.csv"
@@ -8,7 +9,7 @@ nom_fichier_csv_serveur = "../Documents/csv_serveur.csv"
 nom_fichier_alertes_historique = "../Documents/alertes_historique.txt"
 nom_fichier_alertes_site = "../Documents/alertes_site.txt"
 
-#En secondes
+#Definition du temps entre deux alertes en seconde
 delai_entre_deux_alertes = 1800
 
 #Liste des descripteurs que l'on récupère dans csv_serveur
@@ -64,36 +65,57 @@ seuils = [
 ]
 
 def get_heure():
+    """
+    Renvoie l'heures sous le format Heures:Minutes:Secondes
+    """
     return time.strftime("%H:%M:%S", time.localtime())
 
 def get_temps():
+    """
+    Renvoie l'unix time
+    """
     return time.time()
 
 def ecrire_logs(ligne):
+    """
+    Ecrit dans logs.txt sous le format Heures ligne
+    """
     fichier = open(nom_fichier_logs, "a")
     ligne = get_heure() + " " + ligne + "\n"
     fichier.write(ligne)
     fichier.close()
 
 def ecrire_erreur(ligne):
+    """
+    Ecrit dans erreurs.txt sous le format Heures ligne
+    """
     fichier = open(nom_fichier_erreurs, "a")
     ligne = get_heure() + " " + ligne + "\n"
     fichier.write(ligne)
     fichier.close()
 
 def ecrire_alertes_historique(ligne):
+    """
+    Ecrit dans alertes_historique.txt sous le format Heures ligne
+    """
     fichier = open(nom_fichier_alertes_historique, "a")
     ligne = str(int(get_temps())) + " " + ligne + "\n"
     fichier.write(ligne)
     fichier.close()
 
 def ecrire_alertes_site(ligne):
+    """
+    Ecrit dans alertes_site.txt une ligne
+    """
     fichier = open(nom_fichier_alertes_site, "a")
     ligne = ligne + "\n"
     fichier.write(ligne)
     fichier.close()
 
 def fichier_existe(nom_fichier):
+    """
+    Renvoie un booléane Vrai si le fichier existe et pas ouvert ou Faux si le fichier n'existe pas ou et ouvert
+    """
     try:
         fichier = open(nom_fichier, "r")
         fichier.close()
@@ -102,6 +124,9 @@ def fichier_existe(nom_fichier):
         return False
 
 def nombre_lignes(nom_fichier):
+    """
+    Renvoie le nombre de ligne d'un fichier
+    """
     if not fichier_existe(nom_fichier):
         return 0
     fichier = open(nom_fichier, "r")
@@ -110,10 +135,16 @@ def nombre_lignes(nom_fichier):
     return retour
 
 def clear_fichier(nom_fichier):
+    """
+    Supprime toute les lignes d'un fichier txt
+    """
     fichier = open(nom_fichier, "w")
     fichier.close()
 
 def verifier_fichiers():
+    """
+    Verifie si tout les fichiers nécessaire au fonctionement du programme ne comporte pas d'erreur et les créer s'il n'existe pas
+    """
     #logs
     #Créer le fichier s'il n'existe pas
     if not fichier_existe(nom_fichier_logs):
