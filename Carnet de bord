@@ -158,6 +158,10 @@ des paquets qui sont normalement dans visual studio, sauf que pour installer vis
 connecté à internet, mais la connexion est bloquée (même en salle de SI). (Noah en a marre des serveur)
 
 11 Avril:
-On à mis des commentaires sur le programme.
+Ajouts de commentaires et de la description des fonctions et clarification / simplification du code par endroits.
+
+12 Avril:
+Continuation de l'ajout de commetaires dans le code, simplification du code et création de la liste de dictionnaires pour les descripteurs
+pour pouvoir en rajouter/enlever plus facilements(Paul).
 
 
