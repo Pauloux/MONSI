@@ -167,7 +167,8 @@ Mise en place d'une sécurité pour que ça ne mette pas d'erreur quand on essai
 de lignes dans le fichier csv_serveur(Paul).
 
 7 Avril:
-Réception d’un ordinateur plus récent qui nous servira normalement de serveur.
+Réception d’un ordinateur plus récent qui nous servira normalement de serveur. Il y avait à la base une caméra de l'observatoire sur cet ordinateur,
+nous devrons donc rajouter la caméra sur le site.
 Tentative de la démarrer en prévision du travail du lendemain. Heureusement car il y avait un mot de passe que l’on a pu demandé pour que l’on
 puisse travailler dessus le lendemain(Paul).
 Ajout des descripteurs que l’on avait enlevé quelques jours plus tôt à la demande du club Astro pour pouvoir changer les seuils des alertes
@@ -183,6 +184,8 @@ nous n’avons pas de possibilité de mettre via WiFi).
 
 11 Avril:
 Ajouts de commentaires et des aides dans les fonctions.
+Ajout d'une 4ème page au site pour avoir la caméra. On n'a actuellement pas la caméra donc on ne peut pas tester le dispositif mais prenant
+l'image de la caméra et en actualisant assez souvent, cela devrait fonctionner.
 Clarification et simplification du code lorsque possible.
 Création du diaporama qui servira lors de la présentation du projet.
 
