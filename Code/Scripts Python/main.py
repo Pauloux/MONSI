@@ -6,7 +6,7 @@ import creation_image as image
 import alertes
 
 #On vérifie que les fichiers existent
-verifier_fichiers()
+verifier_fichiers_et_initialisation()
 
 #Initialisation des timers
 temps_seuil_routine = get_temps()
@@ -27,6 +27,11 @@ numero_ligne = 0
 simu.initialisation()
 
 while True:
+    #Vérifie si c'est la bonne heure
+    if not heure_pour_declencher():
+        #Attends 1 minute avant de revérifier car c'est un état de veille
+        time.sleep(60)
+        continue
     #Déclenchement des autres fichiers au bon moment
     temps_actu = get_temps()
     if temps_actu >= temps_seuil_routine:
