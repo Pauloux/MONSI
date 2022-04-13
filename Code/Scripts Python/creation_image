@@ -1,28 +1,40 @@
-import matplotlib.pyplot as plt
 from fonctions_communes_et_parametres import *
+import matplotlib.pyplot as plt
 
 def get_derniere_heure(fichier):
   """
-  Renvoie un tableau de tableaux les sous-tableaux les lignes de fichier passé en argument. Cela prend la derniere heure.
+  Renvoie un tableau de tableau. Il y a 30 sous-tableau et chaque sous-tableau est une ligne du fichier passé en argument.
+  On a ainsi les 30 dernières lignes du fichier passé en argument, donc les valeurs de la dernière heure du capteur.
   """
-  tableau = fichier.readlines()[-31:-1]
+
+  #Récupère les 30 dernières lignes
+  tableau = fichier.readlines()[-30:]
+
+  #Remet le curseur de lecture au début du fichier
   fichier.seek(0, 0)
-  nouveau_tableau = []
-  for i in range(len(tableau)):
-    ligne = tableau[i][:-3].split(",")
-    nouveau_tableau.append(ligne)
-  return nouveau_tableau
+
+  #Convertit les lignes en tableaux pour pouvoir accéder aux données que l'on souhaite
+  for indice_ligne in range(len(tableau)):
+    #On pense a enlever le retour à la ligne
+    tableau[indice_ligne] = tableau[indice_ligne][:-1].split(",")
+  return tableau
 
 def get_date_heure(fichier):
-    tableau = fichier.readlines()[-2:-1]
-    ligne = tableau[0]
-    ligne = ligne.split(",")
+    """
+    Renvoie la date et l'heure de la dernière ligne du fichier csv_serveur sous le format : Date | Heure
+    """
+
+    #On récupère la dernière ligne du fichier
+    ligne = get_derniere_heure(fichier)[-1]
     date = ligne[0]
     heure = ligne[1]
-    fichier.seek(0, 0)
     return date + " | " + heure
 
 def get_ordonnee(num_colonne, fichier):
+    """
+    Renvoie un tableau de valeur correspondante aux 30 dernières valeurs de la colonne passé en argument (num_colonne)
+    """
+
     ordonnees = []
     tableau = get_derniere_heure(fichier)
     for ligne in range(30):
@@ -33,7 +45,20 @@ def get_ordonnee(num_colonne, fichier):
       ordonnees.append(valeur)
     return ordonnees
 
-def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, titre, fichier, inverser, **kargs):
+def generer_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, titre, fichier, inverser, **kargs):
+    """
+    Génère une image à partir des paramètres passés en arguments.
+    Arguments attendus :
+        valeur minimum, valeur du premier palier, valeur du deuxième palier, valeur maximale,
+        numéro de la colonne dont on récupère les valeurs pour faire le graphique, titre du graphique, fichier où
+        sont stockées les valeurs, si l'on doit inverser l'axe des ordonnées.
+    Des paramètres peuvent être modifié en faisant à la fin des paramères obligatoires : nom_parametre = valeur
+    On retrouve dans ces paramètres optionnels qui ont une valeur par défaut autrement:
+        couleur de la première zone, couleur de la deuxième zone, couleur de la troisième zone, couleur du texte
+        et des axes, couleur du trait représentant les valeurs, la valeur du canal alpha et le nom de l'axe des ordonnées.
+    """
+
+    #Stocke les paramètres dans un dictionnaire, permettant de mettre des valeurs par défaut et de les modifier si besoin.
     parametres = {
         "minimum" : minimum,
         "premier_palier" : premier_palier,
@@ -50,7 +75,7 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
         "inverser" : inverser,
         "nom_axe_y" : None
     }
-    #Modifie les paramtres par ceux passés en arguments optionnels
+    #Modifie les paramètres par ceux passés en arguments optionnels
     for cle, valeur in kargs.items():
         #Lève une erreur si le nom du paramètre n'existe pas
         if cle in parametres.keys():
@@ -58,42 +83,56 @@ def get_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne, ti
         else:
             raise ValueError("mauvais nom de variable passé en argument")
 
+    #Genère un tableau contenant les valeurs des abscisses. On a une valeur toutes les 2 minutes pendant une heure.
     abscisse = [i for i in range(-60, 0, 2)]
+    #Récupère les valeurs des ordonnées
     ordonnees = get_ordonnee(parametres["num_colonne"], fichier)
+
     #Inverse les valeur si besoin
     if parametres["inverser"]:
         ordonnees = [parametres["maximum"] - element for element in ordonnees]
+
     #Dessine le trait des valeurs
     plt.plot(abscisse, ordonnees, color=parametres["couleur_trait"])
+
     #Dessine les trois zones en fond
     plt.axhspan(parametres["minimum"], parametres["premier_palier"], facecolor=parametres["couleur_premiere_zone"], alpha=parametres["alpha"])
     plt.axhspan(parametres["premier_palier"], parametres["deuxieme_palier"], facecolor=parametres["couleur_deuxieme_zone"], alpha=parametres["alpha"])
     plt.axhspan(parametres["deuxieme_palier"], parametres["maximum"], facecolor=parametres["couleur_troisieme_zone"], alpha=parametres["alpha"])
+
     #Ajoute le titre
     titre_image = parametres["titre"] + "\n" + get_date_heure(fichier)
     plt.title(titre_image, color=parametres["couleur_ecriture"])
+
     #Modifie la couleur des axes
     plt.xticks(color=parametres["couleur_ecriture"])
     plt.yticks(color=parametres["couleur_ecriture"])
-    #Ajoute le nom des axes. L'axe y n'a pas de noms par défaut.
+
+    #Ajoute le nom des axes. L'axe des ordonnées n'a pas de nom par défaut.
     plt.xlabel("Minutes", color=parametres["couleur_ecriture"])
     if parametres["nom_axe_y"] != None:
         plt.ylabel(parametres["nom_axe_y"], color=parametres["couleur_ecriture"])
+
     #Enregistre le fichier
-    nom_fichier = "../Documents/" + parametres["titre"] + ".png"
+    nom_fichier = chemin_enregistrement_images + parametres["titre"] + ".png"
     plt.savefig(nom_fichier, transparent=True)
-    #Réinitialise le graphique pour le prochain coup
+
+    #Réinitialise le graphique pour qu'il n'y ait pas d'interférence avec le prochain
     plt.cla()
 
 def lancer():
+    """
+    Fonction principale de creation_image. Genère les images pour le site avec les valeurs sur la dernière heure.
+    """
+
     #Securite
     #S'il n'y a pas assez de lignes, on arrete tout (30 + 1 de descripteurs)
-    if nombre_lignes(nom_fichier_csv_serveur) < 32:
+    if nombre_lignes(nom_fichier_csv_serveur) < 31:
         print("Image : valeurs d'entrées insuffisantes")
         ecrire_erreur("Image : valeurs d'entrés insuffisantes")
         return
 
     fichier = open(nom_fichier_csv_serveur, "r")
     for element in seuils:
-        get_image(element["minimum"], element["premier_seuil"], element["deuxieme_seuil"], element["maximum"], element["numero_colonne_valeur"], element["nom"], fichier, element["inverser_image"])
+        generer_image(element["minimum"], element["premier_seuil"], element["deuxieme_seuil"], element["maximum"], element["numero_colonne_valeur"], element["nom"], fichier, element["inverser_image"])
     fichier.close()
