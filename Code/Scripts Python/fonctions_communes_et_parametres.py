@@ -13,6 +13,13 @@ chemin_enregistrement_images = "../Documents/"
 #En secondes
 delai_entre_deux_alertes = 1800 #Cela correspond à 30 minutes
 
+heure_debut = "17h30"
+heure_arret = "7h30"
+
+#Défini ces variables pour qu'elles soient globales mais on leur affecte une valeur dans verifier_fichiers_et_initialisation()
+horaire_debut_secondes = None
+horaire_arret_secondes = None
+
 #Liste des descripteurs que l'on récupère dans csv_serveur
 descripteurs_csv_serveur = [
     {
@@ -189,7 +196,7 @@ def clear_fichier(nom_fichier):
     fichier = open(nom_fichier, "w")
     fichier.close()
 
-def verifier_fichiers():
+def verifier_fichiers_et_initialisation():
     """
     Vérifie si tous les fichiers nécéssaires au fonctionnement du programme existent et les créés dans le cas échéant, sauf pour le fichier qui sert
     de base de données pour le simulateur puisqu'on ne peut pas l'inventer.
@@ -252,3 +259,41 @@ def verifier_fichiers():
         fichier_alertes_site.close()
     #Puis le remet à zéro
     clear_fichier(nom_fichier_alertes_site)
+
+    #Convertit les horaires de début et d'arrêt du programme en secondes
+    def convertir_secondes(horaire):
+        """
+        Convertit en secondes l'horaire passée en argument sous la forme : 00h00 (ici correspondant à minuit)
+        """
+        horaire = horaire.split("h")
+        heure = int(horaire[0])
+        minute = int(horaire[1])
+        return heure * 3600 + minute * 60
+
+    #Convertit en secondes une fois au début du programme plutôt qu'a chaque appel
+    global horaire_debut_secondes, horaire_arret_secondes
+    horaire_debut_secondes = convertir_secondes(heure_debut)
+    horaire_arret_secondes = convertir_secondes(heure_arret)
+
+    #Vérifie que les horaires entrés sont corrects
+    if horaire_debut_secondes < horaire_arret_secondes:
+        raise ValueError("L'heure de début doit être après l'heure d'arrêt (car c'est pendant la nuit)")
+
+def heure_pour_declencher():
+    """
+    Retourne True si l'heure est valide pour que les programmes se déclenchent, retourne False sinon.
+    Les paramètres pour changer l'heure de début et de fin des programmes est dans fonction_communes_et_parametres
+    """
+
+    #Convertit l'heure actuelle en secondes
+    horaire_actuelle = get_heure().split(":")
+    heure = int(horaire_actuelle[0])
+    minute = int(horaire_actuelle[1])
+    seconde = int(horaire_actuelle[2])
+    horaire_actuelle_secondes = heure * 3600 + minute * 60 + seconde
+
+    if horaire_actuelle_secondes > horaire_debut_secondes or horaire_actuelle_secondes < horaire_arret_secondes:
+        return True
+    else:
+        return False
+
