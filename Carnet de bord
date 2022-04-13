@@ -1,9 +1,3 @@
-ROUSSEAU Paul et KALEMBA Noah
-
-Projet MONSI
-Projet de NSI,
-en lien avec le club “Astro”
-
 CARNET DE BORD
 
 31 Janvier 2021:
@@ -74,8 +68,6 @@ Création des fichiers de logs et d'erreurs s'ils n'existent pas(Paul).
 25 Février:
 Mise au propre du cahier des charges et du Carnet de bord, et ajout des ceux-ci sur le drive(Paul).
 
-
-
 28 Février:
 Modification de la routine pour enregistrer la dernière ligne dans un fichier texte pour l’envoyer au serveur au lieu d’envoyer tout le
 document csv_serveur à chaque fois?
@@ -113,7 +105,6 @@ couleur des axes ne pouvait pas être changée avec cette librairie mais ce n’
 Expérimentations pour déclencher des pop up sur la page quand on le souhaite -> concluant (Paul).
 Création de boutons pour naviguer entre les pages -> concluant(Paul).
 
-
 12 Mars:
 Suppression d’un bug dans le style qui gérait la couleur des boutons de navigation entre les pages(Paul).
 Début de réflexion sur la génération des alertes. Réalisation d’un prototype dans le fichier de création des images qui génère des alertes toutes
@@ -149,8 +140,6 @@ Apparement, nous n’avions pas téléchargé le bon fichier, donc on a téléch
 fichiers n’a pas aboutie car le fichier final fait plus de 4Go or, la clé USB que nous avions ne supportait pas les fichiers de plus de 4Go (FAT32).
 Réglage d'un problème d'affichage par rapport à la largeur de la page.
 Les alertes affichées sur le site sont désormais des messages que l’on peut modifier et non plus le nom des alertes du type Vent_1 ou Temperature_2.
-
-
 
 2 Avril:
 Changement de certains noms en français plutôt qu'en anglais, notamment sur le nom des images(Paul).
