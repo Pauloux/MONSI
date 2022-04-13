@@ -1,6 +1,7 @@
 Descripteurs dont on a besoin : Date, heure, situation nuage, valeur nuage, situation pluie, valeur pluie, temperature ambiante, status (si on doit fermer l'observatoire), situation vent, valeur vent
 
 Documentation AAg Cloudwatcher : https://lunaticoastro.com/aagcw/enhelp/
+Drive : https://drive.google.com/drive/folders/1akEUccqoGmvwWlSKctcO9PDepv4xX3ya
 
 A faire :
 Voir si on supprime les données au bout d'un moment ?
