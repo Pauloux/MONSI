@@ -57,6 +57,9 @@ S'il y a 6 "Calm" et 6 "Windy" par exemple, alors cela prend désormais la valeu
 Vérification de l'existence des fichiers d'entrée.
 Création des fichiers de logs et d'erreurs s'ils n'existent pas. Paul
 
+25 Février:
+Mise au propre du cahier des charges et du Carnet de bord, et ajout des ceux-ci sur le drive(Paul).
+
 28 Février:
 On a modifié la routine pour enregistrer la dernière ligne dans un fichier texte pour l'envoyer au serveur au lieu d'envoyer tout le document csv à chaque fois.
 Les données seront directements envoyées sur le serveur, donc pas besoin de les transferer via internet.
