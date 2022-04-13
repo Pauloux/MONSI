@@ -1,170 +1,207 @@
+ROUSSEAU Paul et KALEMBA Noah
+
+Projet MONSI
+Projet de NSI,
+en lien avec le club “Astro”
+
+CARNET DE BORD
+
 31 Janvier 2021:
 Annonce de la réalisation des projets.
-Choix de notre projet, qui est de récupérer les données d'une station météo à l'observatoire de la Perdrix pour les afficher sur un site web pour connaitre les conditions météos à distance.
-Début de la réalisation d'un cahier des charges, et des éléments à demander aux utilisateurs
+Choix de notre projet, qui est de récupérer les données d'une station météo à l'observatoire de la Perdrix pour les afficher sur un site web
+pour connaître les conditions météos à distance.
+Début de la réalisation d'un cahier des charges, et des éléments à demander aux utilisateurs (membres du club Astro).
 
 1 Février 2021:
-Création de ce journal de bord
+Création de ce journal de bord, d’un dossier Github et d’un fichier Repl pour pouvoir travailler à deux en même temps sur le projet.
 
 7 Février 2021:
-Il faut que l'on trouve un nom pour le projet
-Début de recherche sur la routineCSVtoSQL qui convertis les données csv fournis par le capteur pour les injecter dans le serveur en SQL toutes les deux minutes.
-  Travail hors-cours :
-réglage du problème du format de fichier que l'on utilise pour faire nos tests
+Nous aimerions trouver un nom pour le projet.
+Début de recherche sur la routine CSVtoSQL qui convertit les données csv fournies par le capteur pour les injecter dans le serveur en SQL toutes
+les deux minutes.
+Réglage du problème du format de fichier que l'on utilise pour faire nos tests.
 
 8 Février:
 Poursuites des essais pour faire la routine CSVtoSQL.
-Découverte de la librairie Pandas qui pourrait permettre de créer directement des graphiques à partir du format csv. Peut être que nous n'avons pas alors besoin
-de convertir les données au format SQL. Stocker une moyenne des valeurs toutes les 2 minutes en csv dans le serveur semble envisageable.
+Découverte de la librairie Pandas qui pourrait permettre de créer directement des graphiques à partir du format csv. Peut être que nous n'avons
+pas alors besoin de convertir les données au format SQL. Stocker une moyenne des valeurs toutes les 2 minutes en csv dans le serveur semble envisageable.
 
 10 Février:
-Affinage du cahier des charges qui est a rendre demain au professeur. Paul
-Rapide recherche sur la librairie Python Pandas. Exporter les données moyennes sur 2 minutes sur le serveur avec une routine Python classique, puis faire les
-graphiques quand nécéssaire sur le serveur semble envissageable. Paul
+Affinage du cahier des charges qui est à rendre demain au professeur(Paul).
+Rapide recherche sur la librairie Python Pandas. Exporter les données moyennes sur 2 minutes sur le serveur avec une routine Python classique,
+puis faire les
+graphiques quand nécessaire avec la libraire Pandas sur le serveur semble envisageable (Paul).
 
 11 Février:
-Debut création Routine (mais la c'est la bonne)
-Si le ficher est vide ça mets les descripteur en haut du fichier csv
-Programation de la recuperation ligne par ligne du fichier csv.
-Création fonction pour récuperer les deux derniere minutes et faire un moyenne pour les nombre et les chaines de caractère des donnés csv du capteur.
-
+Début de la création de la routine qui stock dans le serveur toutes les 2 minutes les valeurs moyennes des 2 dernières minutes au format CSV(Paul).
+Désormais, si le fichier de sortie n’existe pas, la liste des descripteurs sont écrits en première ligne du fichier(Paul).
+Programmation de la récupération ligne par ligne du fichier csv d’entrée(Paul).
+Création de la fonction pour récupérer les deux dernières minutes et faire un moyenne des données csv du capteur(Paul).
 12 Février:
-Suite de la création de la Routine
+Suite de la création de la routine(Paul).
 
 13 Février:
-Les valeurs sont désormais ajoutées à la fin du fichier csv du serveur. Les fonctions sont documentées. Etant à la maison, nous n'avons pas le problème que nous avions au lycée, 
-c'est a dire qu'il y a une erreur si l'on essaie d'ouvrir avec python un fichier déjà ouvert par l'utilisateur. Nous verrons donc au retour en classe comment gérer ces erreurs(fichier
-entrée et sortie). Paul
+Les valeurs sont désormais ajoutées à la fin du fichier csv du serveur (Paul).
+Documentation des fonctions(Paul).
+Étant à la maison, nous n'avons pas le problème que nous avions au lycée, c'est à dire qu'il y a une erreur si l'on essaie d'ouvrir avec python un
+fichier déjà ouvert par l'utilisateur.
+Nous verrons donc au retour en classe comment gérer ces erreurs pour les fichiers d'entrée comme ceux de sortie(Paul).
 
 15 Février:
-Essaie de regler un bug qui fait crash mon interpreteur python quand on essaie de lancer un script python depuis un autre (routine qui se lance toutes les 2 minutes)
-Je me suis endu compte que les données du capteurs sont ajoutées à la fin du fichier alors qu'on prend toujours les premières lignes actuellement dans notre routine.
-Je vais essayer de faire une routine qui simule le capteur. Paul
+Essais de régler un bug qui fait crash mon interpréteur python quand on essaie de lancer un script python depuis un autre (routine qui se lance
+toutes les 2 minutes)(Paul).
+Je me suis rendu compte que les données du capteur sont ajoutées à la fin du fichier alors qu'on prend toujours les premières lignes actuellement
+dans notre routine(Paul).
+Je vais essayer de faire une routine qui simule le capteur(Paul)
 
 16 Février:
-Création d'un programme qui simule le capteur, c'est a dire qui ajoute une ligne toutes les 10 secondes.
-Modification de la routine pour qu'elle prenne les 20 dernières lignes et non les premières. A changer pour 12 lignes et non 20.
-Découverte d'une technique pour faire une boucle toutes les x secondes en étant précis car juste avec des sleep ça se décale peu a peu
+Création d'un programme qui simule le capteur, c'est-à- dire qui ajoute une ligne toutes les 10 secondes(Paul).
+Modification de la routine pour qu'elle prenne les 20 dernières lignes et non les premières(Paul).
+Découverte d'une technique pour faire une boucle toutes les x secondes en étant précis car juste avec des sleep ça se décale peu à peu(Paul).
 
 17 Février:
-Rangement des fichiers sur le Github. Actualisation des fichiers qui étaient sur le Github et sur Repl. Création d'un fichier main.py qui dirige les autres programmes (fait 
-juste des appels de fonction au bon moment).
-Définition dans le brouillon de ce que l'on doit globalement faire.
-Créations de fichiers de logs et d'erreurs horodatés pour simplifier les tests. Paul
+La routine prend maintenant bel et bien les 12 dernières lignes et non les 20 comme j’avais fait hier(Paul).
+Rangement des fichiers sur le Github eet actualisation des fichiers qui étaient sur le Github et sur Repl(Paul).
+Création d'un fichier main.py qui dirige les autres programmes (fait juste des appels de fonction au bon moment)(Paul).
+Définition dans le brouillon de ce que l'on doit globalement faire(Paul).
+Créations de fichiers de logs et d'erreurs horodatés pour simplifier les tests(Paul)
 
 21 Février:
-S'il y a 6 "Calm" et 6 "Windy" par exemple, alors cela prend désormais la valeur que l'on a rencontré en dernier dans le temps.
-Vérification de l'existence des fichiers d'entrée.
-Création des fichiers de logs et d'erreurs s'ils n'existent pas. Paul
+S'il y a 6 "Calm" et 6 "Windy" par exemple, alors cela prend désormais la valeur que l'on a rencontré en dernier dans le temps(Paul).
+Vérification de l'existence des fichiers d'entrée(Paul).
+Création des fichiers de logs et d'erreurs s'ils n'existent pas(Paul).
 
 25 Février:
 Mise au propre du cahier des charges et du Carnet de bord, et ajout des ceux-ci sur le drive(Paul).
 
+
+
 28 Février:
-On a modifié la routine pour enregistrer la dernière ligne dans un fichier texte pour l'envoyer au serveur au lieu d'envoyer tout le document csv à chaque fois.
-Les données seront directements envoyées sur le serveur, donc pas besoin de les transferer via internet.
-Essaies de trouver comment faire un graphique
+Modification de la routine pour enregistrer la dernière ligne dans un fichier texte pour l’envoyer au serveur au lieu d’envoyer tout le
+document csv_serveur à chaque fois?
+Après discussion, les données seront directements sur le serveur donc pas besoin de les transférer via cette méthode. Donc retour en arrière sur ce point.
+Tentatives de réalisation d’un graphique pour voir comment ça fonctionne.
 
 1 Mars:
-Essaies pour faire des graphiques. Finalement on utilise matplotlib.
-Les données des la dernière heure sont correctement affichées sur le graphique et on a trouvé comment mettre un fond de couleur pour indiquer les zones. 
-On a également trouvé comment mettre des légendes.
-On a fait une fonction pour créer les images avec le numéro de la colonne, le nom du graphique et de l'image, la valeur minimale et maximale mais a terme
-nous ferrons surement une fonction pour chaque graphique car chaque donnée a besoin d'etre traité spécifiquement (différentes zones, couleurs etc)
+Suite des essais pour créer des graphiques? Finalement, on utilisera matplotlib.
+On a ainsi les valeurs correctements affichées sur le graphique.
+Documentation sur comment mettre des zones en fond, mettre des légendes, un titre…
+Réalisation d’une fonction pour créer une image à partir du numéro de la colonne à récupérer dans csv_serveur, du titre du graphique,
+et des valeurs minimales et maximales.
+A termes, nous aurons certainement besoin d’une fonction pour chaque graphique car chacun à des spécificités(zones, couleurs…)
 
 2 Mars:
-Les valeurs problématiques sont désormais toutes vers le haut(Paul).
-Les temperatures sont désormais avec des zones bleus et rouges (froid/chaud)(Paul).
-Peut etre faudrait-il lisser les valeurs pour avoir des zones de taille plus homogène(Paul).
-L'axes des abcsices est affiché comme étant les minutes(Paul).
+Désormais, tous les graphiques ont les valeurs qui indiquent des conditions dégradés vers le haut du graphique et les bonnes condition vers le bas(Paul).
+Sur demande du club Astro, les zones des températures ont les couleurs rouges et bleus(chaud/froid)(Paul).
+Ajout du label “minutes” pour l’axe des abscisse sur les graphiques(Paul).
 
 4 Mars:
-On a fait des tests sur les images pour rendre le fond transparent pour qu'il ne soit pas blanc. On a aussi essayé de changer la couleur de l'écriture pour mieux voir sur fond noir
-mais on n'a pas réussi a changer la couleur des axes et leur graduation. Finalement la couleur des valeurs des graduations peut etre changée quand même donc si on ne change pas la 
-couleur des axes ce n'est pas grave.
-On a fait des essais sur les couleurs a utiliser sur le site et sur les images pour que ce ne soit pas trop lumineux mais visible rapidement.
-La date et l'heure est désormais inscrite en haut du graphique.
-Pour l'instant le php ne semble pas être utile pour nous, mais il faudrait que l'on détecte quand un utilisateur se conncecte pour ne pas générer des images quand personne
-n'en a besoin.
+Tentatives de rendre le fond des images transparent pour ne pas que cela rende blanc sur le site noir -> concluant.
+Tentatives de changer la couleur du texte sur le graphique(titre, légende…), mais nous n’avons pas réussi à changer la couleur des axes ainsi
+que leurs graduations. Essais de couleurs à utiliser sur le site et les images pour que ce ne soit pas trop lumineux (utilisation dans l’obscurité)
+mais rapidement visible.
+Ajout de la date et de l’heure en haut des graphiques
+Réflexion sur l’utilité du PHP : il ne semble pas être nécessaire pour nous à l’heure actuelle, mais on aimerait à terme détecter quand un
+utilisateur se connecte sur le site pour ne pas générer les images quand personne n’en a besoin
 
 7 Mars:
-Paul a fait une fonction qui créer les images sur demande avec les parametres que l'on veut et il a rajouté la date et l'heure sur les graphiques
-Noah a fait des sur la detection d'une connexion au serveur et comment changer la couleur des axes du graphique, sans succès
+Création d’une fonction qui créer une image sur demande avec les paramètres que l’on souhaite(Paul).
+Recherche sur la détection d’une connexion au serveur et sur la possibilité de changer la couleur des axes sur le graphique. Découverte que la
+couleur des axes ne pouvait pas être changée avec cette librairie mais ce n’est pas un aspect très important.(Noah).
 
 11 Mars:
-Expérimentations pour déclencher des pop up sur la page quand on le souhaite(Paul) -> concluant
-Création des boutons pour naviguer entre les pages(Noah) -> concluant
+Expérimentations pour déclencher des pop up sur la page quand on le souhaite -> concluant (Paul).
+Création de boutons pour naviguer entre les pages -> concluant(Paul).
+
 
 12 Mars:
-Reglage d'un bug pour la couleur des boutons pour naviguer entre les pages(Paul)
-Debut de reflexion sur comment generer le fichier avec les alertes(Paul) -> les alertes sont actuellement créées toutes les 2 minutes en meme temps que les images et elles
-s'affichent une fois sur 2 (le but était de ne pas les afficher pleins de fois d'affiler). Il faudrait peut être créer les alertes plus fréquement que toutes les 2 minutes ?
+Suppression d’un bug dans le style qui gérait la couleur des boutons de navigation entre les pages(Paul).
+Début de réflexion sur la génération des alertes. Réalisation d’un prototype dans le fichier de création des images qui génère des alertes toutes
+les 2 minutes. Actuellement les alertes ne se génère qu’une fois sur deux, mais l’objectif est de pouvoir définir un délai minimal entre
+l’affichage de deux alertes du même type pour ne pas surcharger le site(Paul).
 
 15 Mars:
-Creation d'un fichier alertes.py pour générer les alertes (actuellement toutes les 2 minutes) a partir du fichier csv_serveur.csv.
-Tests pour mettre le site sur un serveur avec Wamp.
+Création du fichier alertes.py qui est chargé de générer les alertes à partir du fichier csv_serveur.
+Expérimentations pour mettre le site sur un serveur avec Wamp.
 
 16 Mars:
-Les alertes ne s'activent maintenant qu'une fois toutes les 30 minutes pour ne pas faires des alertes tout le temps pour l'utilisateur.
+Modification de la génération des alertes pour qu’elles ne s’affichent désormais qu’une fois toutes les 30 minutes pour le confort de l’utilisateur.
 
 18 Mars:
-Prise en charge de la machine qui nous servira de serveur, mais faute d'avoir le mot de passe, nous n'avons pas significativement avancé.
-Essaies sur les pop-up de la page et réglage de problèmes d'affichage du site.
+Réception de la machine qui nous servira de serveur, mais faute d’avoir le mot de passe, nous n’avons pas significativement avancé.
+Réalisation d’essais pour améliorer les pop-up des alertes sur le site et réglage d’un problème d’affichage sur le site.
 
 21 Mars:
-Essaie d'installation de la licence Windows Serveur 2003 que nous avons déjà, mais le serveur de détecte pas notre clé USB.
-Planification du travail à faire le lendemain et début d'essais sur Wamp en localhost.
+Tentatives d'installation de la licence Windows Serveur 2003 que nous possédons, mais le serveur ne détecte pas notre clé USB.
+Planification du travail à faire le lendemain et réalisation d’essais pour mettre notre site en localhost avec Wamp pour vérifier s’il
+fonctionne (Il était actuellement sur Repl)
 
 22 Mars:
-Essaie d'installation de la licence avec un CD cette fois ci. Le serveur n'a pas détecté non plus notre CD.
+Tentative d'installation de la licence Windows Server 2003 mais cette fois ci avec un CD que l’on a gravé. Le serveur n’a pas détecté notre CD non plus.
 
 25 Mars:
-Suite des essais pour installer la licence sur le serveur et mise en place d'une liste des alertes des 30 dernières minutes sur le site. Suite des essais en localhost
-avec Wamp
-
-28 Mars:
-Est-ce qu'on a fait le projet ce jour la ?
+Suite des essais pour installer la licence sur le serveur.
+Ajout de la liste des alertes qu’il y a eu ces 30 dernières minutes sur le site.
+Suite des essais pour mettre le site en localhost avec Wamp.
 
 1 Avril:
-Téléchargement de la bonne licence cette fois normalement. Nous n'avons ensuite pas pu extraire les fichiers car le fichier de sortie fait plus de 4 Go et la clé
-USB que nous avions ne pouvait pas gérer les fichiers de plus de 4Go. Réglage d'un problème d'affichage de la largeur de la page et messages affichés sur le site plus beaux
-(phrases complètes).
+Apparement, nous n’avions pas téléchargé le bon fichier, donc on a téléchargé le bon cette fois ci. Cependant l’extraction des
+fichiers n’a pas aboutie car le fichier final fait plus de 4Go or, la clé USB que nous avions ne supportait pas les fichiers de plus de 4Go (FAT32).
+Réglage d'un problème d'affichage par rapport à la largeur de la page.
+Les alertes affichées sur le site sont désormais des messages que l’on peut modifier et non plus le nom des alertes du type Vent_1 ou Temperature_2.
+
+
 
 2 Avril:
-Changement de certains noms en français plutôt qu'en anglais (images etc), réflexion sur la structuration des fichiers sur le serveur a terme(Paul).
+Changement de certains noms en français plutôt qu'en anglais, notamment sur le nom des images(Paul).
+Réflexion sur la structuration des fichiers sur le serveur à terme(Paul).
 
 3 Avril:
-Création du fichier fontctions_communes_et_parametres pour ne pas répéter certaines fonctions identiques dans les autres fichiers ainsi que les parametres pour les seuils
-d'image et les noms des fichiers(Paul).
-Création de la fonction verifier_fichiers() qui vérifie si tous les fichiers existent et les crées si nécessaires(Paul).
+Création du fichier fonctions_communes_et_parametres.py. Il a pour fonction de regrouper les fonctions communes aux fichiers python que
+l’on a déjà, comme ecrire_erreur(), get_heure()... De plus, les paramètres généraux seront stockés ici pour ne plus avoir à changer les
+paramètres dans tous les autres fichiers et risquer d’en oublier un, comme les noms des fichiers par exemple.
+Ajout d’une variable gérant les seuils d’alertes dans ce fichier(Paul).
+Création de la fonction verifier_fichiers() dans ce fichier qui vérifie si tous les fichiers existent et les crés si nécessaires(Paul).
 
 4 Avril:
-On a essayé de mettre le fichier que l'on avait trouvé vendredi mais ça n'a pas marché. En fait c'est une machine virtuelle. On a essayé de mettre wamp
-sur le serveur mais il n'est pas connecté à internet car le réseau du lycée le bloque car il ne le connait pas. De plus, il n'arrive pas a lire le
-fichier d'installation de wamp que l'on a mis via une clé usb. On a donc avancé un peu sur la mise au propre du code et on a enlevé les descipteurs
-que l'on utilisaient pas dans csv_serveur.
+Tentative d’installation du fichier que l’on avait trouvé sans réussir à l’extraire. C’est en réalité une machine virtuelle, donc pas ce
+que l’on cherche.
+Tentative d’installation de Wamp sur le serveur. Le système d’exploitation du serveur que l’on a réussi à installer pour l’instant (Windows XP)
+n’arrive pas à lire le fichier d’installation de Wamp. De plus, le serveur étant étranger au réseau du lycée, celui ci lui refuse l’accès à
+internet, ne simplifiant pas nos essais.
+Mise au propre du code et retrait des descripteurs que l’on utilisait finalement pas dans csv_serveur (les conditions du vent, des nuages… car
+on génère les alertes à partir des valeurs avec les seuils définis dans le fichier de paramètres)
 
 6 Avril:
-Création d'une fonction qui compte le nombre de lignes dans un fichier et mise en place d'une sécurité pour que ça ne mette pas d'erreur quand on essaie
-de créer des images ou des alertes quand il n'y a pas assez de lignes dans le fichier csv_serveur(Paul).
+Création d'une fonction qui compte le nombre de lignes dans un fichier.
+Mise en place d'une sécurité pour que ça ne mette pas d'erreur quand on essaie de créer des images ou des alertes quand il n'y a pas assez
+de lignes dans le fichier csv_serveur(Paul).
 
 7 Avril:
-J'ai branché l'ordinateur pour voir si ça marcherais demain. J'ai bien fait car il fallait un mot de passe que j'ai pu demander. Autrement, nous n'aurions
-rien pu faire le lendemain(Paul).
-J'ai remis les descripteurs que j'avais enlevé quelques jours plus tôt sur demande du club Astro(Paul).
+Réception d’un ordinateur plus récent qui nous servira normalement de serveur.
+Tentative de la démarrer en prévision du travail du lendemain. Heureusement car il y avait un mot de passe que l’on a pu demandé pour que l’on
+puisse travailler dessus le lendemain(Paul).
+Ajout des descripteurs que l’on avait enlevé quelques jours plus tôt à la demande du club Astro pour pouvoir changer les seuils des alertes
+depuis le logiciel du capteur(Paul).
 
 8 Avril:
-Les alertes se générent par rapport aux conditions données par le capteur et non plus à partir des valeurs. Les seuils peuvent donc être reglés
-sur le logiciel du capteur, et les seuils de couleurs sur les graphiques peuvent être différents des seuils des alertes si on le souhaite.
-On a aussi essayé de mettre wamp sur l'ordinateur que le club Astro nous a donné, mais sans succès. En effet, il faut en plus de wamp installer
-des paquets qui sont normalement dans visual studio, sauf que pour installer visual studio, il faut une connection internet or, on est bien
-connecté à internet, mais la connexion est bloquée (même en salle de SI). (Noah en a marre des serveur)
+Les alertes se génèrent par rapport aux conditions données par le capteur et non plus à partir des valeurs. Les seuils peuvent donc être réglés
+sur le logiciel du capteur comme l’a demandé le club Astro. Cependant, il faut toujours rentrer les seuils dans le fichier de paramètres pour
+la génération d’image.
+Tentative d’installation de Wamp sur ce nouveau serveur. Cependant, Wamp nécessite d’autres paquets à télécharger à côté, ce qui n’est pas facile
+sans connexion internet directement sur le serveur (même problème qu’avec l’autre serveur, le réseau du lycée nous refuse l’accès à internet et
+nous n’avons pas de possibilité de mettre via WiFi).
 
 11 Avril:
-Ajouts de commentaires et de la description des fonctions et clarification / simplification du code par endroits.
+Ajouts de commentaires et des aides dans les fonctions.
+Clarification et simplification du code lorsque possible.
+Création du diaporama qui servira lors de la présentation du projet.
 
 12 Avril:
-Continuation de l'ajout de commetaires dans le code, simplification du code et création de la liste de dictionnaires pour les descripteurs
-pour pouvoir en rajouter/enlever plus facilements(Paul).
+Suite de l’ajout de commentaires et de la simplification du code lorsque possible.
+Modification de l’implémentation de la liste des descripteurs pour pouvoir en ajouter ou en enlever facilement(Il fallait modifier dans plusieurs
+fichiers auparavant)(Paul).
 
-
+13 Avril:
+Finalisation des commentaires et de la simplification du code que l’on a actuellement(Paul).
+Mise au propre de ce carnet de bord(Paul).
