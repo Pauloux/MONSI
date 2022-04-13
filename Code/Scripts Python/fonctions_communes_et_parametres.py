@@ -1,6 +1,6 @@
-#Importe la librairie Time
 import time
-#Importation des autres fichier
+
+#Définition des noms des fichiers et de leur chemins d'accès
 nom_fichier_logs = "../Documents/logs.txt"
 nom_fichier_erreurs = "../Documents/erreurs.txt"
 nom_fichier_donnees_brutes_simu = "../Documents/donnees_brutes.csv"
@@ -8,13 +8,61 @@ nom_fichier_capteur = "../Documents/Simulateur_donnees.csv"
 nom_fichier_csv_serveur = "../Documents/csv_serveur.csv"
 nom_fichier_alertes_historique = "../Documents/alertes_historique.txt"
 nom_fichier_alertes_site = "../Documents/alertes_site.txt"
+chemin_enregistrement_images = "../Documents/"
 
-#Definition du temps entre deux alertes en seconde
-delai_entre_deux_alertes = 1800
+#En secondes
+delai_entre_deux_alertes = 1800 #Cela correspond à 30 minutes
 
 #Liste des descripteurs que l'on récupère dans csv_serveur
-descripteurs_csv_serveur = ["Date", "Time", "Wind Value", "Wind Condition", "Cloud Value", "Cloud Condition", "Ambient Temperature", "Rain Value", "Rain Condition"]
+descripteurs_csv_serveur = [
+    {
+    "nom" : "Date",
+    "numero_colonne" : 0,
+    "type" : "dernier"
+    },
+    {
+    "nom" : "Time",
+    "numero_colonne" : 1,
+    "type" : "dernier"
+    },
+    {
+    "nom" : "Wind Value",
+    "numero_colonne" : 18,
+    "type" : "valeur"
+    },
+    {
+    "nom" : "Wind Condition",
+    "numero_colonne" : 17,
+    "type" : "condition"
+    },
+    {
+    "nom" : "Cloud Value",
+    "numero_colonne" : 5,
+    "type" : "valeur"
+    },
+    {
+    "nom" : "Cloud Condition",
+    "numero_colonne" : 2,
+    "type" : "condition"
+    },
+    {
+    "nom" : "Ambient Temperature",
+    "numero_colonne" : 9,
+    "type" : "valeur"
+    },
+    {
+    "nom" : "Rain Value",
+    "numero_colonne" : 7,
+    "type" : "valeur"
+    },
+    {
+    "nom" : "Rain Condition",
+    "numero_colonne" : 3,
+    "type" : "condition"
+    }
+]
 
+#Définition des seuils pour génerer les alertes et les images
 seuils = [
     {
         "nom" : "Vent",
@@ -66,19 +114,19 @@ seuils = [
 
 def get_heure():
     """
-    Renvoie l'heures sous le format Heures:Minutes:Secondes
+    Retourne l'heure actuelle sous le format Heures:Minutes:Secondes
     """
     return time.strftime("%H:%M:%S", time.localtime())
 
 def get_temps():
     """
-    Renvoie l'unix time
+    Retourne l'Heure Unix
     """
     return time.time()
 
 def ecrire_logs(ligne):
     """
-    Ecrit dans logs.txt sous le format Heures ligne
+    Ecrit dans le fichier de logs la ligne passée en argument en ajoutant l'heure au début de la ligne
     """
     fichier = open(nom_fichier_logs, "a")
     ligne = get_heure() + " " + ligne + "\n"
@@ -87,7 +135,7 @@ def ecrire_logs(ligne):
 
 def ecrire_erreur(ligne):
     """
-    Ecrit dans erreurs.txt sous le format Heures ligne
+    Ecrit dans le fichier d'erreur la ligne passée en argument en ajoutant l'heure au début de la ligne
     """
     fichier = open(nom_fichier_erreurs, "a")
     ligne = get_heure() + " " + ligne + "\n"
@@ -96,7 +144,7 @@ def ecrire_erreur(ligne):
 
 def ecrire_alertes_historique(ligne):
     """
-    Ecrit dans alertes_historique.txt sous le format Heures ligne
+    Ecrit dans le fichier alertes_historique la ligne passée en argument en ajoutant l'Heure Unix au début de la ligne
     """
     fichier = open(nom_fichier_alertes_historique, "a")
     ligne = str(int(get_temps())) + " " + ligne + "\n"
@@ -105,7 +153,7 @@ def ecrire_alertes_historique(ligne):
 
 def ecrire_alertes_site(ligne):
     """
-    Ecrit dans alertes_site.txt une ligne
+    Ecrit dans le fichier alertes_site la ligne passée en argument
     """
     fichier = open(nom_fichier_alertes_site, "a")
     ligne = ligne + "\n"
@@ -114,7 +162,7 @@ def ecrire_alertes_site(ligne):
 
 def fichier_existe(nom_fichier):
     """
-    Renvoie un booléane Vrai si le fichier existe et pas ouvert ou Faux si le fichier n'existe pas ou et ouvert
+    Renvoie True si le fichier passé en argument existe et peut être ouvert, renvoie False sinon
     """
     try:
         fichier = open(nom_fichier, "r")
@@ -125,7 +173,7 @@ def fichier_existe(nom_fichier):
 
 def nombre_lignes(nom_fichier):
     """
-    Renvoie le nombre de ligne d'un fichier
+    Renvoie le nombre de lignes du fichier passé en argument. Renvoie 0 si le fichier n'existe pas
     """
     if not fichier_existe(nom_fichier):
         return 0
@@ -136,14 +184,15 @@ def nombre_lignes(nom_fichier):
 
 def clear_fichier(nom_fichier):
     """
-    Supprime toute les lignes d'un fichier txt
+    Vide le fichier passé en argument
     """
     fichier = open(nom_fichier, "w")
     fichier.close()
 
 def verifier_fichiers():
     """
-    Verifie si tout les fichiers nécessaire au fonctionement du programme ne comporte pas d'erreur et les créer s'il n'existe pas
+    Vérifie si tous les fichiers nécéssaires au fonctionnement du programme existent et les créés dans le cas échéant, sauf pour le fichier qui sert
+    de base de données pour le simulateur puisqu'on ne peut pas l'inventer.
     """
     #logs
     #Créer le fichier s'il n'existe pas
@@ -165,7 +214,6 @@ def verifier_fichiers():
     #Vérifie si le fichier existe, sinon il lève une erreur
     if not fichier_existe(nom_fichier_donnees_brutes_simu):
         print("Simulateur : Fichier d'entrée inexistant, arrêt du Simulateur")
-        ecrire_logs("Simulateur : Fichier d'entrée inexistant, arrêt du Simulateur")
         ecrire_erreur("Simulateur : Fichier d'entrée inexistant, arrêt du Simulateur")
         raise ValueError("Fichier " + nom_fichier_donnees_brutes_simu + "inexistant")
 
@@ -173,7 +221,6 @@ def verifier_fichiers():
     #Créer le fichier s'il n'existe pas
     if not fichier_existe(nom_fichier_capteur):
         print("Simulateur : Fichier de sortie inexistant, création de " + nom_fichier_capteur)
-        ecrire_logs("Simulateur : Fichier de sortie inexistant, création de " + nom_fichier_capteur)
         ecrire_erreur("Simulateur : Fichier de sortie inexistant, création de " + nom_fichier_capteur)
         fichier_sortie = open(nom_fichier_capteur, "x")
         fichier_sortie.close()
@@ -182,10 +229,12 @@ def verifier_fichiers():
     #Créer un fichier csv avec la liste des descripteur si le fichier n'existe pas
     if not fichier_existe(nom_fichier_csv_serveur):
         print("Routine : Fichier de sortie inexistant, création de " + nom_fichier_csv_serveur)
-        ecrire_logs("Routine : Fichier de sortie inexistant, création de " + nom_fichier_csv_serveur)
         ecrire_erreur("Routine : Fichier de sortie inexistant, création de " + nom_fichier_csv_serveur)
         fichier_sortie = open(nom_fichier_csv_serveur, "a")
-        fichier_sortie.write(",".join(descripteurs_csv_serveur))
+        #Récupère la liste des descripteurs à écrire
+        descripteurs = [descripteur["nom"] for descripteur in descripteurs_csv_serveur]
+        fichier_sortie.write(",".join(descripteurs))
+        fichier_sortie.write("\n")
         fichier_sortie.close()
 
     #Fichier alertes_historique
