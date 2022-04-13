@@ -2,49 +2,65 @@ from fonctions_communes_et_parametres import *
 
 def get_2derniere_mins(fichier):
   """
-  Renvoie un tableau de tableaux les sous-tableaux les lignes de fichier passé en argument. Cela prend les deux dernières minutes.
+  Renvoie un tableau de tableau. Il y a 12 sous-tableau et chaque sous-tableau est une ligne du fichier passé en argument.
+  On a ainsi les 12 dernières lignes du fichier passé en argument, donc les valeurs des 2 dernières minutes du capteur.
   """
-  tableau = fichier.readlines()[-13:-1]
-  nouveau_tableau = []
-  for i in range(len(tableau)):
-    if len(tableau[i]) < 5 :
-      continue
-    ligne = tableau[i][1:-3].split('","')
-    nouveau_tableau.append(ligne)
-  #Securité
-  while len(nouveau_tableau) < 12:
-    nouveau_tableau.append("Fausse ligne")
-    ecrire_logs("Fausse ligne ajoutée")
-    ecrire_erreur("Fausse ligne ajoutée")
-  return nouveau_tableau
+
+  #Récupère les 12 dernières lignes
+  tableau = fichier.readlines()[-12:]
+  for indice_ligne in range(len(tableau)):
+    #Si la ligne est trop petite, on passe la ligne car elle causerait une erreur lors de la conversion en liste
+    if len(tableau[indice_ligne]) < 5:
+        tableau[indice_ligne] = "Fausse ligne"
+        ecrire_erreur("Fausse ligne ajoutée " + str(tableau[indice_ligne]))
+    else:
+        #Autrement, on enlève le " au début de la ligne et le ", a la fin de la ligne puis on split cette ligne par les ","
+        #Pour ainsi n'avoir que les valeurs
+        tableau[indice_ligne] = tableau[indice_ligne][1:-3].split('","')
+  return tableau
 
 def moyenne_2mins(fichier):
   """
-  Renvoie un tableau avec la moyenne des valeurs des deux dernieres minutes
+  Renvoie un tableau avec les moyennes des valeurs des deux dernières minutes pour les données qui nous intéréssents uniquement.
+  On a ainsi:
+    Date, Heure, Valeur du Vent, Condition du Vent, Valeur des nuages, Condition nuageuse, Temperature ambiante, Valeur de la pluie, Condition pluvieuse.
   """
+
   #On récupère le tableau des valeurs des deux dernières minutes
   tableau = get_2derniere_mins(fichier)
 
   def ligne_est_valide(ligne):
     """
-    Renvoie un booléen, True si la ligne est valide (elle ne commence pas par "date" et il y a bien 19 éléments), renvoie False sinon
+    Prend en entrée l'argument ligne, qui est l'index de la ligne a vérfier. Renvoie True si la ligne est au format
+    que notre routine peut traiter, renvoie False sinon.
     """
+
+    #Si le premier élément est date, alors c'est une ligne de descripteur, et s'il n'y a pas 19  éléments, alors il
+    #y a eu un problème avec le capteur
     return tableau[ligne][0]!="Date" and len(tableau[ligne]) == 19
 
 
   def get_derniere_valeur(num_colonne):
     """
-    Renvoie la valeur de la colonne que l'on a passé en argument(numero de colonne) de la dernière ligne ajoutée au fichier
+    Renvoie la valeur présente dans la dernière ligne du fichier et à l'indice num_colonne passé en argument.
     """
-    indice = -1
-    while not ligne_est_valide(indice):
-      indice -= 1
-    return tableau[indice][num_colonne]
+
+    #Recherche de la dernière ligne valide
+    indice_ligne = -1
+    while not ligne_est_valide(indice_ligne) and indice_ligne > -12:
+      indice_ligne -= 1
+
+    #Renvoie la chaine "None" si aucune ligne n'est valide
+    if indice_ligne > -12:
+        return tableau[indice_ligne][num_colonne]
+    else:
+        return "None"
 
   def get_moyenne_colonne(num_colonne):
     """
-    Renvoie la moyenne des valeurs de la colonne que l'on a passé en argument(numero de colonne) des 12 denières lignes ajoutées au fichier (2 minutes)
+    Renvoie la moyenne des valeurs de la colonne que l'on a passé en argument(numero de colonne) des 12 dernières lignes ajoutées au fichier (donc 2 minutes)
     """
+
     somme = 0
     for ligne in range(12):
       #Passe la ligne si elle n'est pas valide
@@ -57,11 +73,13 @@ def moyenne_2mins(fichier):
     #On retourne le résultat arrondis et sous forme de chaine de caractere pour l'injecter dans le document csv ensuite
     return str(round(somme / 12, 1))
 
-  tableau_sortie = []
-  def valeur_majoritaire_colonne(num_colonne):
+  def get_valeur_majoritaire_colonne(num_colonne):
     """
-    Renvoie la valeur majoritaire des valeurs de la colonne que l'on a passé en argument(numero de colonne) des 12 denières lignes ajoutées au fichier (2 minutes)
+    Renvoie la chaine de caractère majoritaire de la colonne que l'on a passé en argument(numero de colonne)
+    des 12 dernières lignes ajoutées au fichier (donc 2 minutes).
+    Si deux chaines de caractères ont le même nombre d'occurence, on prend la dernière qui a été rencontrée
     """
+
     #On crée un dictionnaire pour garder le compte de chaque valeur rencontrée
     dictionnaire = {}
     for ligne in range(12):
@@ -77,6 +95,7 @@ def moyenne_2mins(fichier):
           }
       #Ensuite on ajoute 1 au compteur de cette valeur dans tous les cas
       dictionnaire[valeur]["compteur"] += 1
+
     #On cherche le nombre d'occurrence le plus grand
     maximums = {}
     valeur_maximum = -float("inf")
@@ -88,6 +107,7 @@ def moyenne_2mins(fichier):
       elif valeur["compteur"] > valeur_maximum:
         valeur_maximum = valeur["compteur"]
         maximums = {cle : valeur["premiere occurrence"]}
+
     #On cherche la premiere occurrence la plus petite
     valeur_premiere_occurrence_min = float("inf")
     cle_premiere_occurrence_min = None
@@ -95,35 +115,33 @@ def moyenne_2mins(fichier):
       if valeur < valeur_premiere_occurrence_min:
         cle_premiere_occurrence_min = cle
         valeur_premiere_occurrence_min = valeur
+
     return cle_premiere_occurrence_min
 
+  #On ajoute à un tableau les valeurs que l'on va mettre dans notre ligne dans le fichier csv_serveur
   tableau_sortie = []
-  #Ajoute les colonnes utiles
-  #Date
-  tableau_sortie.append(get_derniere_valeur(0))
-  #Heure
-  tableau_sortie.append(get_derniere_valeur(1))
-  #Wind Value
-  tableau_sortie.append(get_moyenne_colonne(18))
-  #Wind Condition
-  tableau_sortie.append(valeur_majoritaire_colonne(17))
-  #Cloud Value
-  tableau_sortie.append(get_moyenne_colonne(5))
-  #Cloud condition
-  tableau_sortie.append(valeur_majoritaire_colonne(2))
-  #Ambient Temperature
-  tableau_sortie.append(get_moyenne_colonne(9))
-  #Rain Value
-  tableau_sortie.append(get_moyenne_colonne(7))
-  #Rain Condition
-  tableau_sortie.append(valeur_majoritaire_colonne(3))
+  for descripteur in descripteurs_csv_serveur:
+    type = descripteur["type"]
+    numero_colonne = descripteur["numero_colonne"]
+    if type == "dernier":
+        ligne = get_derniere_valeur(numero_colonne)
+    elif type == "valeur":
+        ligne = get_moyenne_colonne(numero_colonne)
+    elif type == "condition":
+        ligne = get_valeur_majoritaire_colonne(numero_colonne)
+    else:
+        raise ValueError("Type de descripteur inconnu")
+    tableau_sortie.append(ligne)
 
   return tableau_sortie
 
 def lancer():
   """
-  Ouvre les fichiers, écrit dedans et les referme
+  Fonction principale de routine_convertir_donnes_serveur. Ajoute une ligne représentant la moyenne des deux dernières
+  minutes des valeurs du capteur au fichier csv_serveur. Ne fait rien s'il n'y a pas assez de ligne dans le fichier d'entrée
+  pour fonctionner correctement.
   """
+
   #Securite
   #S'il n'y a pas assez de lignes, on arrete tout (12 + 1 de descripteurs)
   if nombre_lignes(nom_fichier_capteur) < 13:
@@ -136,8 +154,8 @@ def lancer():
   fichier_sortie = open(nom_fichier_csv_serveur, "a")
 
   #On écrit dedans
-  fichier_sortie.write("\n")
   fichier_sortie.write(",".join(moyenne_2mins(fichier_entree)))
+  fichier_sortie.write("\n")
 
   #On ferme les fichiers
   fichier_entree.close()
