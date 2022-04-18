@@ -199,3 +199,14 @@ Finalisation des commentaires et de la simplification du code que l’on a actue
 Mise au propre de ce carnet de bord(Paul).
 Mise en place d'horaires de fonctionnements à définir dans les paramètres. Les programmes ne s'éxécutent donc que la nuit entre les horaires
 que l'on a défini(Paul).
+
+18 Avril:
+Modification de la création des images pour que quand le programme se lance, cela n'affiche pas les valeurs d'hier (car ce sont les dernières dans csv_serveur).
+Optimisation de la création des images en ne faisant plus qu'un appel à get_derniere_heure()
+Modification du simulateur car pour tester, il faut désormais que les dates des valeurs soient proches de la date actuelle. Les valeurs du capteur sont donc toujours
+générées à partir d'une base de données, mais la date et l'heure sont modifiées artificiellement. Le point négatif est que quand on test en accéléré, les valeurs
+ne sont pas espacées de 10 secondes mais cela ne nous gêne pas.
+
+
+
+
