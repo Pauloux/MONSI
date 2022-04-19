@@ -31,6 +31,7 @@ Début de la création de la routine qui stock dans le serveur toutes les 2 minu
 Désormais, si le fichier de sortie n’existe pas, la liste des descripteurs sont écrits en première ligne du fichier(Paul).
 Programmation de la récupération ligne par ligne du fichier csv d’entrée(Paul).
 Création de la fonction pour récupérer les deux dernières minutes et faire un moyenne des données csv du capteur(Paul).
+
 12 Février:
 Suite de la création de la routine(Paul).
 
@@ -207,6 +208,9 @@ Modification du simulateur car pour tester, il faut désormais que les dates des
 générées à partir d'une base de données, mais la date et l'heure sont modifiées artificiellement. Le point négatif est que quand on test en accéléré, les valeurs
 ne sont pas espacées de 10 secondes mais cela ne nous gêne pas.
 
-
+19 Avril:
+Vérification de l'heure aussi pour les alertes.
+Création d'un site où l'on peut voir les 4 graphiques en même temps pour que l'on voit rapidement quand on test.
+Affiche maintenant une image annonçant "Capteur arrêté" quand le programme est arrêté pour prévenir l'utilisateur.
 
 
