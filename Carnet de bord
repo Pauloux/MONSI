@@ -211,6 +211,8 @@ ne sont pas espacées de 10 secondes mais cela ne nous gêne pas.
 19 Avril:
 Vérification de l'heure aussi pour les alertes.
 Création d'un site où l'on peut voir les 4 graphiques en même temps pour que l'on voit rapidement quand on test.
+Reglage d'un bug dans le simulateur qui remplaçait la date même si c'était une ligne de descripteur. Le programme considérait ensuite que la ligne était valide
+et provoquait une erreur.
 Affiche maintenant une image annonçant "Capteur arrêté" quand le programme est arrêté pour prévenir l'utilisateur.
 
 
