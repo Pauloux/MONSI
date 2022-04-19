@@ -45,10 +45,16 @@ def lancer():
     derniere_ligne = derniere_ligne.split(",")
     fichier_csv.close()
 
+    #Securite
+    #S'il la ligne est trop ancienne, on ne fait rien
+    if not delai_entre_deux_alertes(derniere_ligne) < 3600:
+        return
+
     #Verifie s'il y a des alertes
     for element in seuils:
         numero_colonne = element["numero_colonne_condition"]
-        if numero_colonne != None:
+        #Vérifie qu'il y ait bien des alertes pour cette donnée et que la valeur lue est récente
+        if numero_colonne != None and delai_secondes_ligne_et_mtn(derniere_ligne) < 3600:
             valeur = derniere_ligne[numero_colonne]
             nom = element["nom"]
             nom_alerte_1 = nom + "_1"
@@ -57,10 +63,8 @@ def lancer():
             if valeur == element["condition_moyenne"] and nom_alerte_1 not in alertes_deja_ecrites:
                 ecrire_alertes_historique(nom_alerte_1)
                 ecrire_alertes_site(nom_alerte_1)
-                print("alerte 1")
+                print("alerte " + nom_alerte_1)
             if valeur == element["condition_mauvaise"] and nom_alerte_2 not in alertes_deja_ecrites:
                 ecrire_alertes_historique(nom_alerte_2)
                 ecrire_alertes_site(nom_alerte_2)
-                print("alerte 2")
-
-
+                print("alerte " + nom_alerte_2)
