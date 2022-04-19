@@ -6,7 +6,9 @@ import creation_image as image
 import alertes
 
 #On vérifie que les fichiers existent
+print("Vérification des fichiers...", end=" ")
 verifier_fichiers_et_initialisation()
+print("Fichiers vérifiés !")
 
 #Initialisation des timers
 temps_seuil_routine = get_temps()
@@ -15,7 +17,7 @@ temps_seuil_image = get_temps()
 temps_seuil_alerte = get_temps()
 
 #Définition des délais d'exécution(en secondes)
-acceleration = 20
+acceleration = 10
 delai_routine = 120 / acceleration
 delai_simu = 10 / acceleration
 delai_image = 120 / acceleration
@@ -24,11 +26,15 @@ delai_alerte = 120 / acceleration
 #Uniquement pour le simulateur
 #Récupère le nombre de lignes du fichier de sortie pour savoir quelle ligne récuperer dans le fichier d'entrée ensuite
 numero_ligne = 0
+print("Initialisation du simulateur...", end=" ")
 simu.initialisation()
+print("Simulateur initialisé !")
 
+print("Lancement du programme !")
 while True:
     #Vérifie si c'est la bonne heure
     if not heure_pour_declencher():
+        remplacer_images_capteur_arrete()
         #Attends 1 minute avant de revérifier car c'est un état de veille
         time.sleep(60)
         continue
