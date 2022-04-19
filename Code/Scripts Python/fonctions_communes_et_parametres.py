@@ -1,4 +1,6 @@
 import time
+import datetime as dt
+import shutil
 
 #Définition des noms des fichiers et de leur chemins d'accès
 nom_fichier_logs = "../Documents/logs.txt"
@@ -8,6 +10,7 @@ nom_fichier_capteur = "../Documents/Simulateur_donnees.csv"
 nom_fichier_csv_serveur = "../Documents/csv_serveur.csv"
 nom_fichier_alertes_historique = "../Documents/alertes_historique.txt"
 nom_fichier_alertes_site = "../Documents/alertes_site.txt"
+nom_fichier_image_capteur_arrete = "../Documents/Capteur_arrete.png"
 chemin_enregistrement_images = "../Documents/"
 
 #En secondes
@@ -196,6 +199,14 @@ def clear_fichier(nom_fichier):
     fichier = open(nom_fichier, "w")
     fichier.close()
 
+def remplacer_images_capteur_arrete():
+    for element in seuils:
+        nom = element["nom"]
+        nom_enregistrement = chemin_enregistrement_images + nom + ".png"
+        shutil.copy(nom_fichier_image_capteur_arrete, nom_enregistrement)
+
+remplacer_images_capteur_arrete()
+
 def verifier_fichiers_et_initialisation():
     """
     Vérifie si tous les fichiers nécéssaires au fonctionnement du programme existent et les créés dans le cas échéant, sauf pour le fichier qui sert
@@ -204,6 +215,7 @@ def verifier_fichiers_et_initialisation():
     #logs
     #Créer le fichier s'il n'existe pas
     if not fichier_existe(nom_fichier_logs):
+        print("Création du fichier de logs !")
         fichier_logs = open(nom_fichier_logs, "x")
         fichier_logs.close()
     #Puis le remet à zéro
@@ -212,6 +224,7 @@ def verifier_fichiers_et_initialisation():
     #erreurs
     #Créer le fichier s'il n'existe pas
     if not fichier_existe(nom_fichier_erreurs):
+        print("Création du fichier d'erreurs !")
         fichier_erreurs = open(nom_fichier_erreurs, "x")
         fichier_erreurs.close()
     #Puis le remet à zéro
@@ -246,7 +259,8 @@ def verifier_fichiers_et_initialisation():
 
     #Fichier alertes_historique
     #Créer le fichier s'il n'existe pas
-    if not fichier_existe(nom_fichier_alertes_historique) :
+    if not fichier_existe(nom_fichier_alertes_historique):
+        print("Création du fichier alertes_historique")
         fichier_alertes_historique = open(nom_fichier_alertes_historique, "x")
         fichier_alertes_historique.close()
     #Puis le remet à zéro
@@ -255,6 +269,7 @@ def verifier_fichiers_et_initialisation():
     #Fichier alertes_site
     #Créer le fichier s'il n'existe pas
     if not fichier_existe(nom_fichier_alertes_site) :
+        print("Création du fichier alertes_site")
         fichier_alertes_site = open(nom_fichier_alertes_site, "x")
         fichier_alertes_site.close()
     #Puis le remet à zéro
@@ -297,3 +312,19 @@ def heure_pour_declencher():
     else:
         return False
 
+def delai_secondes_ligne_et_mtn(ligne):
+    date = ligne[0].split("-")
+    heure = ligne[1].split(":")
+    annee = int(date[0])
+    mois = int(date[1])
+    jour = int(date[2])
+    seconde = int(heure[2])
+    minute = int(heure[1])
+    heure = int(heure[0])
+
+    #Calcule la différence en secondes entre la date de la ligne et la date actuelle
+    heure_lue = dt.datetime(annee, mois, jour, heure, minute, seconde)
+    heure_actuelle = dt.datetime.now()
+    difference_en_secondes = int((heure_actuelle - heure_lue).total_seconds())
+
+    return difference_en_secondes
