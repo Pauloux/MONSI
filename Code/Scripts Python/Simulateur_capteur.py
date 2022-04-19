@@ -26,7 +26,16 @@ def lancer():
         fichier_entree.readline()
 
     #Ecrit dans le fichier la bonne ligne de la base de données
-    fichier_sortie.write(fichier_entree.readline())
+    ligne_a_ecrire = fichier_entree.readline()
+    ligne_a_ecrire = ligne_a_ecrire.split(",")
+    if ligne_a_ecrire[0] != '"Date"':
+        date_actuelle = time.strftime("%Y-%m-%d", time.localtime())
+        heure_actuelle = time.strftime("%H:%M:%S", time.localtime())
+        ligne_a_ecrire[0] = '"' + date_actuelle + '"'
+        ligne_a_ecrire[1] = '"' + heure_actuelle + '"'
+    ligne_a_ecrire = ",".join(ligne_a_ecrire)
+
+    fichier_sortie.write(ligne_a_ecrire)
 
     #Passe a la ligne suivante pour le prochain appel de la fonction
     numero_ligne += 1
@@ -34,3 +43,4 @@ def lancer():
     #Ferme les fichiers
     fichier_entree.close()
     fichier_sortie.close()
+    
