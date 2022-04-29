@@ -198,22 +198,26 @@ fichiers auparavant)(Paul).
 13 Avril:
 Finalisation des commentaires et de la simplification du code que l’on a actuellement(Paul).
 Mise au propre de ce carnet de bord(Paul).
-Mise en place d'horaires de fonctionnements à définir dans les paramètres. Les programmes ne s'éxécutent donc que la nuit entre les horaires
-que l'on a défini(Paul).
+Mise en place d'horaires de fonctionnements à définir dans les paramètres. Les programmes ne s'exécutent donc que la nuit entre les horaires(Paul).
 
 18 Avril:
-Modification de la création des images pour que quand le programme se lance, cela n'affiche pas les valeurs d'hier (car ce sont les dernières dans csv_serveur).
-Optimisation de la création des images en ne faisant plus qu'un appel à get_derniere_heure()
-Modification du simulateur car pour tester, il faut désormais que les dates des valeurs soient proches de la date actuelle. Les valeurs du capteur sont donc toujours
-générées à partir d'une base de données, mais la date et l'heure sont modifiées artificiellement. Le point négatif est que quand on test en accéléré, les valeurs
-ne sont pas espacées de 10 secondes mais cela ne nous gêne pas.
+Modification de la création des images pour que quand le programme se lance, cela n'affiche pas les valeurs d'hier (car ce sont les dernières dans csv_serveur
+qui sont lues)(Paul).
+Optimisation de la création des images en ne faisant plus qu'un appel à get_derniere_heure() au lieu de deux(Paul).
+Modification du simulateur car pour tester, il faut désormais que les dates des valeurs soient proches de la date actuelle. Les valeurs du capteur sont donc
+toujours générées à partir d'une base de données, mais la date et l'heure sont modifiées artificiellement. Le point négatif est que quand on test en accéléré,
+les valeurs ne sont pas espacées de 10 secondes mais cela ne nous gêne pas pour les tests.
 
 19 Avril:
-Vérification de l'heure aussi pour les alertes.
-Création d'un site où l'on peut voir les 4 graphiques en même temps pour que l'on voit rapidement quand on test.
-Reglage d'un bug dans le simulateur qui remplaçait la date même si c'était une ligne de descripteur. Le programme considérait ensuite que la ligne était valide
-et provoquait une erreur.
-Affiche maintenant une image annonçant "Capteur arrêté" quand le programme est arrêté pour prévenir l'utilisateur.
+Vérification de l'heure aussi pour les alertes(Paul).
+Création d'un site en HTML où l'on peut voir les 4 graphiques en même temps pour que l'on voit rapidement les graphiques lorsque l’on test(Paul).
+Réglage d'un bug dans le simulateur qui remplaçait la date même si c'était une ligne de descripteur. Le programme considérait ensuite que la ligne était valide
+et provoquait une erreur(Paul).
+Affiche maintenant une image annonçant "Capteur arrêté" quand le programme est arrêté pour prévenir l'utilisateur(Paul).
+
 
 26 Avril:
-Installer de WAMP sur le serveur, mais il n'y a pas le menu et on n'arrive pas a mettre le serveur accessible depuis un autre ordinateur
+Installation de WAMP sur le serveur, mais il n'y a pas le menu et on n'arrive pas a mettre le serveur accessible depuis un autre ordinateur
+
+29 Avril:
+Mise au propre de ce carnet de bord et préparation de la présentation du projet
