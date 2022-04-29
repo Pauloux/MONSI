@@ -215,8 +215,5 @@ Reglage d'un bug dans le simulateur qui remplaçait la date même si c'était un
 et provoquait une erreur.
 Affiche maintenant une image annonçant "Capteur arrêté" quand le programme est arrêté pour prévenir l'utilisateur.
 
-23 Avril:
-Mise en place d'horaires de fonctionnements car c'est inutile la journée
-
 26 Avril:
 Installer de WAMP sur le serveur, mais il n'y a pas le menu et on n'arrive pas a mettre le serveur accessible depuis un autre ordinateur
