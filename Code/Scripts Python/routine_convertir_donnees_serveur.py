@@ -8,6 +8,7 @@ def get_2derniere_mins(fichier):
 
   #Récupère les 12 dernières lignes
   tableau = fichier.readlines()[-12:]
+
   for indice_ligne in range(len(tableau)):
     #Si la ligne est trop petite, on passe la ligne car elle causerait une erreur lors de la conversion en liste
     if len(tableau[indice_ligne]) < 5:
@@ -67,9 +68,11 @@ def moyenne_2mins(fichier):
       if not ligne_est_valide(ligne):
         continue
       valeur = tableau[ligne][num_colonne]
+
       #Remplace les virgules par des points pour pouvoir les convertir en float
       valeur = valeur.replace(",", ".")
       somme += float(valeur)
+
     #On retourne le résultat arrondis et sous forme de chaine de caractere pour l'injecter dans le document csv ensuite
     return str(round(somme / 12, 1))
 
@@ -80,12 +83,15 @@ def moyenne_2mins(fichier):
     Si deux chaines de caractères ont le même nombre d'occurence, on prend la dernière qui a été rencontrée
     """
 
+    #Nombre d'occurence ce chaque chaine de caractère
     #On crée un dictionnaire pour garder le compte de chaque valeur rencontrée
     dictionnaire = {}
+
     for ligne in range(12):
       #Passe la ligne si elle n'est pas valide
       if not ligne_est_valide(ligne):
         continue
+
       valeur = tableau[ligne][num_colonne]
       #Si la valeur n'est pas encore dans le dictionnaire, on l'ajoute
       if valeur not in dictionnaire.keys():
@@ -93,24 +99,28 @@ def moyenne_2mins(fichier):
           "compteur" : 0,
           "premiere occurrence" : ligne
           }
+          
       #Ensuite on ajoute 1 au compteur de cette valeur dans tous les cas
       dictionnaire[valeur]["compteur"] += 1
 
     #On cherche le nombre d'occurrence le plus grand
     maximums = {}
     valeur_maximum = -float("inf")
+
     for cle, valeur in dictionnaire.items():
       #Si on a la meme valeur, on l'ajoute au dictionnaire maximums
       if valeur["compteur"] == valeur_maximum:
         maximums[cle] = valeur["premiere occurrence"]
+
       #Si c'est un nouveau maximum, on crée le dictionnaire avec seulement cette valeur
       elif valeur["compteur"] > valeur_maximum:
         valeur_maximum = valeur["compteur"]
         maximums = {cle : valeur["premiere occurrence"]}
 
-    #On cherche la premiere occurrence la plus petite
+    #On cherche la premiere occurrence la plus petite parmis les chaines de caractères qui ont le plus grand nombre d'occurence
     valeur_premiere_occurrence_min = float("inf")
     cle_premiere_occurrence_min = None
+
     for cle, valeur in maximums.items():
       if valeur < valeur_premiere_occurrence_min:
         cle_premiere_occurrence_min = cle
@@ -123,6 +133,7 @@ def moyenne_2mins(fichier):
   for descripteur in descripteurs_csv_serveur:
     type = descripteur["type"]
     numero_colonne = descripteur["numero_colonne"]
+
     if type == "dernier":
         ligne = get_derniere_valeur(numero_colonne)
     elif type == "valeur":
@@ -131,6 +142,7 @@ def moyenne_2mins(fichier):
         ligne = get_valeur_majoritaire_colonne(numero_colonne)
     else:
         raise ValueError("Type de descripteur inconnu")
+        
     tableau_sortie.append(ligne)
 
   return tableau_sortie
