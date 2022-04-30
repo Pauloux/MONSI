@@ -5,7 +5,10 @@ def lancer():
     Fonction principale de alertes. Genère les alertes à afficher sur le site, et fait en sorte de ne pas le surcharger non plus
     en mettant un délai minimum entre chaque alerte de même type.
     """
+
+    #On vide toujours le fichier nom_fichier_alertes_site
     clear_fichier(nom_fichier_alertes_site)
+    
     #Securite
     #S'il n'y a pas assez de lignes, on arrete tout (1 + 1 de descripteurs)
     if nombre_lignes(nom_fichier_csv_serveur) < 2:
@@ -30,24 +33,29 @@ def lancer():
         if difference_secondes < delai_entre_deux_alertes:
             contenu_nouveau_fichier.append(ligne)
             alertes_deja_ecrites.append(nom_alerte)
+    
     fichier_alertes_historique.close()
 
     #Réécrit le fichier historique avec les bonnes lignes
     clear_fichier(nom_fichier_alertes_historique)
     fichier_alertes_historique = open(nom_fichier_alertes_historique, "a")
+
     for ligne in contenu_nouveau_fichier:
         fichier_alertes_historique.write(ligne)
+
     fichier_alertes_historique.close()
 
     #Récupère les valeurs du fichier csv_serveur
     fichier_csv = open(nom_fichier_csv_serveur, "r")
+
     derniere_ligne = fichier_csv.readlines()[-1]
     derniere_ligne = derniere_ligne.split(",")
+
     fichier_csv.close()
 
     #Securite
     #S'il la ligne est trop ancienne, on ne fait rien
-    if not delai_entre_deux_alertes(derniere_ligne) < 3600:
+    if not delai_secondes_ligne_et_mtn(derniere_ligne) < 3600:
         return
 
     #Verifie s'il y a des alertes
@@ -59,6 +67,7 @@ def lancer():
             nom = element["nom"]
             nom_alerte_1 = nom + "_1"
             nom_alerte_2 = nom + "_2"
+            
             #Ajoute les alertes que si elles n'y sont pas déjà
             if valeur == element["condition_moyenne"] and nom_alerte_1 not in alertes_deja_ecrites:
                 ecrire_alertes_historique(nom_alerte_1)
