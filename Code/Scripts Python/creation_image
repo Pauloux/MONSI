@@ -96,6 +96,7 @@ def generer_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne
         "inverser" : inverser,
         "nom_axe_y" : None
     }
+
     #Modifie les paramètres par ceux passés en arguments optionnels
     for cle, valeur in kargs.items():
         #Lève une erreur si le nom du paramètre n'existe pas
@@ -104,7 +105,7 @@ def generer_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne
         else:
             raise ValueError("mauvais nom de variable passé en argument")
 
-    #Genère un tableau contenant les valeurs des abscisses. On a une valeur toutes les 2 minutes pendant une heure.
+    #Récupère les valeurs des abscisses
     abscisse = get_abscisse(tableau)
     #Récupère les valeurs des ordonnées
     ordonnees = get_ordonnee(parametres["num_colonne"], tableau)
@@ -135,7 +136,7 @@ def generer_image(minimum, premier_palier, deuxieme_palier, maximum, num_colonne
         plt.ylabel(parametres["nom_axe_y"], color=parametres["couleur_ecriture"])
 
     #Place deux points invisibles en -60, 0 pour que le graphique aille de -60 à 0 même quand il n'y a pas de valeurs au lancement du programme
-    #0 est une valeur arbitraire qui est commune à toutes les plages des grahpiques
+    #0 est une valeur arbitraire qui est commune à toutes les plages des graphiques
     plt.plot(-60, 0)
     plt.plot(0, 0)
 
@@ -162,6 +163,7 @@ def lancer():
     fichier = open(nom_fichier_csv_serveur, "r")
     tableau_valeurs_derniere_heure = get_derniere_heure(fichier)
     fichier.close()
+    
     #Génère les images une par une
     for element in seuils:
         generer_image(element["minimum"], element["premier_seuil"], element["deuxieme_seuil"], element["maximum"], element["numero_colonne_valeur"], element["nom"], tableau_valeurs_derniere_heure, element["inverser_image"])
