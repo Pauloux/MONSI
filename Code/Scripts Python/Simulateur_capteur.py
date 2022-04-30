@@ -26,15 +26,24 @@ def lancer():
         fichier_entree.readline()
 
     #Ecrit dans le fichier la bonne ligne de la base de données
+
     ligne_a_ecrire = fichier_entree.readline()
+
+    #Sépare la ligne par les virgules
     ligne_a_ecrire = ligne_a_ecrire.split(",")
+
+    #Vérifie si ce n'est pas une ligne de descripteur. Si s'en est une, on ne change rien
     if ligne_a_ecrire[0] != '"Date"':
+        #Modifie l'heure et la date
         date_actuelle = time.strftime("%Y-%m-%d", time.localtime())
         heure_actuelle = time.strftime("%H:%M:%S", time.localtime())
         ligne_a_ecrire[0] = '"' + date_actuelle + '"'
         ligne_a_ecrire[1] = '"' + heure_actuelle + '"'
+
+    #Re créer la ligne comme au bon format
     ligne_a_ecrire = ",".join(ligne_a_ecrire)
 
+    #Ecriture
     fichier_sortie.write(ligne_a_ecrire)
 
     #Passe a la ligne suivante pour le prochain appel de la fonction
