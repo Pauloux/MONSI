@@ -16,6 +16,7 @@ chemin_enregistrement_images = "../Documents/"
 #En secondes
 delai_entre_deux_alertes = 1800 #Cela correspond à 30 minutes
 
+#Heure de lancement et d'arrêt du programme
 heure_debut = "17h30"
 heure_arret = "7h30"
 
@@ -205,8 +206,6 @@ def remplacer_images_capteur_arrete():
         nom_enregistrement = chemin_enregistrement_images + nom + ".png"
         shutil.copy(nom_fichier_image_capteur_arrete, nom_enregistrement)
 
-remplacer_images_capteur_arrete()
-
 def verifier_fichiers_et_initialisation():
     """
     Vérifie si tous les fichiers nécéssaires au fonctionnement du programme existent et les créés dans le cas échéant, sauf pour le fichier qui sert
@@ -230,6 +229,24 @@ def verifier_fichiers_et_initialisation():
     #Puis le remet à zéro
     clear_fichier(nom_fichier_erreurs)
 
+    #Fichier alertes_historique
+    #Créer le fichier s'il n'existe pas
+    if not fichier_existe(nom_fichier_alertes_historique):
+        print("Création du fichier alertes_historique")
+        fichier_alertes_historique = open(nom_fichier_alertes_historique, "x")
+        fichier_alertes_historique.close()
+    #Puis le remet à zéro
+    clear_fichier(nom_fichier_alertes_historique)
+
+    #Fichier alertes_site
+    #Créer le fichier s'il n'existe pas
+    if not fichier_existe(nom_fichier_alertes_site) :
+        print("Création du fichier alertes_site")
+        fichier_alertes_site = open(nom_fichier_alertes_site, "x")
+        fichier_alertes_site.close()
+    #Puis le remet à zéro
+    clear_fichier(nom_fichier_alertes_site)
+
     #fichier donnees_brutes_simu
     #Vérifie si le fichier existe, sinon il lève une erreur
     if not fichier_existe(nom_fichier_donnees_brutes_simu):
@@ -251,29 +268,13 @@ def verifier_fichiers_et_initialisation():
         print("Routine : Fichier de sortie inexistant, création de " + nom_fichier_csv_serveur)
         ecrire_erreur("Routine : Fichier de sortie inexistant, création de " + nom_fichier_csv_serveur)
         fichier_sortie = open(nom_fichier_csv_serveur, "a")
+
         #Récupère la liste des descripteurs à écrire
         descripteurs = [descripteur["nom"] for descripteur in descripteurs_csv_serveur]
+
         fichier_sortie.write(",".join(descripteurs))
         fichier_sortie.write("\n")
         fichier_sortie.close()
-
-    #Fichier alertes_historique
-    #Créer le fichier s'il n'existe pas
-    if not fichier_existe(nom_fichier_alertes_historique):
-        print("Création du fichier alertes_historique")
-        fichier_alertes_historique = open(nom_fichier_alertes_historique, "x")
-        fichier_alertes_historique.close()
-    #Puis le remet à zéro
-    clear_fichier(nom_fichier_alertes_historique)
-
-    #Fichier alertes_site
-    #Créer le fichier s'il n'existe pas
-    if not fichier_existe(nom_fichier_alertes_site) :
-        print("Création du fichier alertes_site")
-        fichier_alertes_site = open(nom_fichier_alertes_site, "x")
-        fichier_alertes_site.close()
-    #Puis le remet à zéro
-    clear_fichier(nom_fichier_alertes_site)
 
     #Convertit les horaires de début et d'arrêt du programme en secondes
     def convertir_secondes(horaire):
@@ -285,7 +286,7 @@ def verifier_fichiers_et_initialisation():
         minute = int(horaire[1])
         return heure * 3600 + minute * 60
 
-    #Convertit en secondes une fois au début du programme plutôt qu'a chaque appel
+    #Convertit en secondes une fois au début du programme plutôt qu'à chaque appel
     global horaire_debut_secondes, horaire_arret_secondes
     horaire_debut_secondes = convertir_secondes(heure_debut)
     horaire_arret_secondes = convertir_secondes(heure_arret)
@@ -302,9 +303,11 @@ def heure_pour_declencher():
 
     #Convertit l'heure actuelle en secondes
     horaire_actuelle = get_heure().split(":")
+
     heure = int(horaire_actuelle[0])
     minute = int(horaire_actuelle[1])
     seconde = int(horaire_actuelle[2])
+
     horaire_actuelle_secondes = heure * 3600 + minute * 60 + seconde
 
     if horaire_actuelle_secondes > horaire_debut_secondes or horaire_actuelle_secondes < horaire_arret_secondes:
@@ -315,16 +318,20 @@ def heure_pour_declencher():
 def delai_secondes_ligne_et_mtn(ligne):
     date = ligne[0].split("-")
     heure = ligne[1].split(":")
+
     annee = int(date[0])
     mois = int(date[1])
     jour = int(date[2])
+
     seconde = int(heure[2])
     minute = int(heure[1])
+    #Attnetion, remplace le contenu de la variable heure
     heure = int(heure[0])
 
     #Calcule la différence en secondes entre la date de la ligne et la date actuelle
     heure_lue = dt.datetime(annee, mois, jour, heure, minute, seconde)
     heure_actuelle = dt.datetime.now()
+    
     difference_en_secondes = int((heure_actuelle - heure_lue).total_seconds())
 
     return difference_en_secondes
