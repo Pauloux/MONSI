@@ -97,9 +97,9 @@ def moyenne_2mins(fichier):
       if valeur not in dictionnaire.keys():
         dictionnaire[valeur] = {
           "compteur" : 0,
-          "premiere occurrence" : ligne
+          "derniere occurrence" : ligne
           }
-          
+
       #Ensuite on ajoute 1 au compteur de cette valeur dans tous les cas
       dictionnaire[valeur]["compteur"] += 1
 
@@ -110,23 +110,23 @@ def moyenne_2mins(fichier):
     for cle, valeur in dictionnaire.items():
       #Si on a la meme valeur, on l'ajoute au dictionnaire maximums
       if valeur["compteur"] == valeur_maximum:
-        maximums[cle] = valeur["premiere occurrence"]
+        maximums[cle] = valeur["derniere occurrence"]
 
       #Si c'est un nouveau maximum, on crée le dictionnaire avec seulement cette valeur
       elif valeur["compteur"] > valeur_maximum:
         valeur_maximum = valeur["compteur"]
-        maximums = {cle : valeur["premiere occurrence"]}
+        maximums = {cle : valeur["derniere occurrence"]}
 
-    #On cherche la premiere occurrence la plus petite parmis les chaines de caractères qui ont le plus grand nombre d'occurence
-    valeur_premiere_occurrence_min = float("inf")
-    cle_premiere_occurrence_min = None
+    #On cherche la dernire occurrence la plus petite parmis les chaines de caractères qui ont le plus grand nombre d'occurence
+    valeur_derniere_occurrence_min = float("inf")
+    cle_derniere_occurrence_min = None
 
     for cle, valeur in maximums.items():
-      if valeur < valeur_premiere_occurrence_min:
-        cle_premiere_occurrence_min = cle
-        valeur_premiere_occurrence_min = valeur
+      if valeur <= valeur_derniere_occurrence_min:
+        cle_derniere_occurrence_min = cle
+        valeur_derniere_occurrence_min = valeur
 
-    return cle_premiere_occurrence_min
+    return cle_derniere_occurrence_min
 
   #On ajoute à un tableau les valeurs que l'on va mettre dans notre ligne dans le fichier csv_serveur
   tableau_sortie = []
@@ -142,7 +142,7 @@ def moyenne_2mins(fichier):
         ligne = get_valeur_majoritaire_colonne(numero_colonne)
     else:
         raise ValueError("Type de descripteur inconnu")
-        
+
     tableau_sortie.append(ligne)
 
   return tableau_sortie
