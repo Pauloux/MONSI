@@ -5,7 +5,7 @@
   </head>
   <body>
     <?php
-      header("Location: SiteNSIAstroPage1");
+      header("Location: SiteMONSIPage1");
       exit();
     ?>
   </body>
