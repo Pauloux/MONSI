@@ -1,21 +1,21 @@
 <html>
   <head>
-    <title>Projet NSI/Astro</title>
+    <title>Projet MONSI</title>
     <link rel="stylesheet" href="style2.css">
   </head>
   <body>
-    <h1 class="center text_color">Projet NSI/Astro</h1>
+    <h1 class="center text_color">Projet MONSI</h1>
 
     <header>
        <!--Boutons pour passer d'une page à l'autre -->
     <div id ="menu-centered">
       <ul>
-      <li><a href="SiteNSIAstroPage1" title="Vent/Nuages">Vent/Nuage</a></li>
-      <li><a href="SiteNSIAstroPage2" title="Temperature">Temperature</a></li>
-      <li><a href="SiteNSIAstroPage3" title="Pluie">Pluie</a></li>
-      <li><a href="" title="Caméra">Caméra</a></li>
+        <li><a href="SiteMONSIPage1" title="Vent/Nuages">Vent/Nuage</a></li>
+        <li><a href="SiteMONSIPage2" title="Temperature">Temperature</a></li>
+        <li><a href="SiteMONSIPage3" title="Pluie">Pluie</a></li>
+        <li><a href="" title="Caméra">Caméra</a></li>
       </ul>
-    </div>
+      </div>
     </header>
 
     <!--Image-->
@@ -70,7 +70,7 @@
             }
             //Et on ajoute l'alerte à la liste
             echo "<li>$nouvelle_ligne</li>";
-        }
+          }
       //On referme le document quand on a fini
       fclose($handle);
       //S'il n'y a aucune alerte, on l'affiche
