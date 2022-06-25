@@ -1,6 +1,6 @@
 from fonctions_communes_et_parametres import *
 import routine_convertir_donnees_serveur as routine
-import Simulateur_capteur as simu
+import simulateur_capteur as simu
 import creation_image as image
 import alertes
 
