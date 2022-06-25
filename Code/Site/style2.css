@@ -10,9 +10,14 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.column {
-  float: left;
-  width: 50%;
+.image {
+  display : block;
+  margin-left : auto;
+  margin-right : auto;
+  height : 84%;
+}  
+.center {
+  text-align: center;
 }
 
 .Dernieres_alertes{
@@ -28,10 +33,6 @@ body {
   color : #BBE1FA;
   font-weight: 800;
   font-family: Arial, sans-serif;
-}
-  
-.center {
-  text-align: center;
 }
 
 #menu-centered {
