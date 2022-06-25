@@ -127,7 +127,6 @@ def get_heure():
     """
     Retourne l'heure actuelle sous le format Heures:Minutes:Secondes
     """
-
     return time.strftime("%H:%M:%S", time.localtime())
 
 def get_temps():
@@ -140,7 +139,6 @@ def ecrire_logs(ligne):
     """
     Ecrit dans le fichier de logs la ligne passée en argument en ajoutant l'heure au début de la ligne
     """
-
     fichier = open(nom_fichier_logs, "a")
     ligne = get_heure() + " " + ligne + "\n"
     fichier.write(ligne)
@@ -150,7 +148,6 @@ def ecrire_erreur(ligne):
     """
     Ecrit dans le fichier d'erreur la ligne passée en argument en ajoutant l'heure au début de la ligne
     """
-
     fichier = open(nom_fichier_erreurs, "a")
     ligne = get_heure() + " " + ligne + "\n"
     fichier.write(ligne)
@@ -160,7 +157,6 @@ def ecrire_alertes_historique(ligne):
     """
     Ecrit dans le fichier alertes_historique la ligne passée en argument en ajoutant l'Heure Unix au début de la ligne
     """
-
     fichier = open(nom_fichier_alertes_historique, "a")
     ligne = str(int(get_temps())) + " " + ligne + "\n"
     fichier.write(ligne)
@@ -170,7 +166,6 @@ def ecrire_alertes_site(ligne):
     """
     Ecrit dans le fichier alertes_site la ligne passée en argument
     """
-
     fichier = open(nom_fichier_alertes_site, "a")
     ligne = ligne + "\n"
     fichier.write(ligne)
@@ -180,7 +175,6 @@ def fichier_existe(nom_fichier):
     """
     Renvoie True si le fichier passé en argument existe et peut être ouvert, renvoie False sinon
     """
-
     try:
         fichier = open(nom_fichier, "r")
         fichier.close()
@@ -207,10 +201,6 @@ def clear_fichier(nom_fichier):
     fichier.close()
 
 def remplacer_images_capteur_arrete():
-    """
-    Remplace les graphiques Vent, Nuage, Pluie et Temperature par une image indiquant que le capteur est arrêté
-    """
-
     for element in seuils:
         nom = element["nom"]
         nom_enregistrement = chemin_enregistrement_images + nom + ".png"
@@ -221,7 +211,6 @@ def verifier_fichiers_et_initialisation():
     Vérifie si tous les fichiers nécéssaires au fonctionnement du programme existent et les créés dans le cas échéant, sauf pour le fichier qui sert
     de base de données pour le simulateur puisqu'on ne peut pas l'inventer.
     """
-
     #logs
     #Créer le fichier s'il n'existe pas
     if not fichier_existe(nom_fichier_logs):
@@ -292,7 +281,6 @@ def verifier_fichiers_et_initialisation():
         """
         Convertit en secondes l'horaire passée en argument sous la forme : 00h00 (ici correspondant à minuit)
         """
-
         horaire = horaire.split("h")
         heure = int(horaire[0])
         minute = int(horaire[1])
@@ -328,10 +316,6 @@ def heure_pour_declencher():
         return False
 
 def delai_secondes_ligne_et_mtn(ligne):
-    """
-    Retourne le délai en secondes entre l'heure où l'on appelle la fonction et l'heure contenue dans la ligne passée en argument. La ligne est au format de nos fichiers csv
-    """
-
     date = ligne[0].split("-")
     heure = ligne[1].split(":")
 
@@ -347,7 +331,7 @@ def delai_secondes_ligne_et_mtn(ligne):
     #Calcule la différence en secondes entre la date de la ligne et la date actuelle
     heure_lue = dt.datetime(annee, mois, jour, heure, minute, seconde)
     heure_actuelle = dt.datetime.now()
-
+    
     difference_en_secondes = int((heure_actuelle - heure_lue).total_seconds())
 
     return difference_en_secondes
